@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoGenerate: 1
   networkOnly: 1
-  defaultPooling: 1
+  poolByDefault: 0
   folder: {fileID: 102900000, guid: 3dda249c276d09a4bb59c346665cf0e3, type: 3}
-  prefabs: []
+  prefabs:
+  - prefab: {fileID: 4867059976734381477, guid: 13869765ec5ea2c4295976c4558ada40, type: 3}
+    pooled: 0
+    warmupCount: 5

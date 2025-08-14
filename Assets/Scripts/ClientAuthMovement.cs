@@ -12,13 +12,15 @@ public class ClientAuthMovement : NetworkBehaviour
     {
         // IsOwner will also work in a distributed-authoritative scenario as the owner 
         // has the Authority to update the object.
-        if (!IsOwner || !IsSpawned) return;
-
+        //if (!IsOwner || !IsSpawned) return;
+   
+        
 
         var multiplier = Speed * Time.deltaTime;
 
         if (Keyboard.current.aKey.isPressed)
         {
+            Debug.Log("Moving left");
             transform.position += new Vector3(-multiplier, 0, 0);
         }
         else if (Keyboard.current.dKey.isPressed)
