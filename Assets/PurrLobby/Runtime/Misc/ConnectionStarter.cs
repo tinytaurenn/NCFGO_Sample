@@ -7,6 +7,7 @@ using UnityEngine;
 
 #if UTP_LOBBYRELAY
 //using PurrNet.UTP;
+
 using Unity.Services.Relay.Models;
 
 #endif
@@ -67,6 +68,7 @@ namespace PurrLobby
             if(_lobbyDataHolder.CurrentLobby.IsOwner)
                 _networkManager.StartServer();
             StartCoroutine(StartClient());
+            
         }
 
         private IEnumerator StartClient()

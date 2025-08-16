@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 8186459984677265814}
   - component: {fileID: 2155637761336966601}
   - component: {fileID: 7262966248693391244}
+  - component: {fileID: -6424608914709586623}
   m_Layer: 0
   m_Name: PlayerSample
   m_TagString: Untagged
@@ -239,3 +240,25 @@ MonoBehaviour:
   _toDeactivate: []
   _toEnable: []
   _toDisable: []
+--- !u!114 &-6424608914709586623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867059976734381477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ae315c3ff04a5d42b6a3312a1387910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  m_CubePrefab: {fileID: 8964007400464325882, guid: c8237eaf1769fae47afd240d0f0bd5ed, type: 3}
