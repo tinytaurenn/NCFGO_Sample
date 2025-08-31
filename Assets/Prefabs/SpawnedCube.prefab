@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 49609446900736679}
   - component: {fileID: 228107840995800054}
   - component: {fileID: 214232560907774812}
+  - component: {fileID: -9182859325703072735}
   m_Layer: 0
   m_Name: SpawnedCube
   m_TagString: Untagged
@@ -106,7 +107,7 @@ MonoBehaviour:
   _parent: {fileID: 0}
   _invertedPathToNearestParent: 
   _directChildren: []
-  _networkRules: {fileID: 0}
+  _networkRules: {fileID: 11400000, guid: 747e061513ae392488b31690e00d22c7, type: 2}
   _visitiblityRules: {fileID: 0}
   _syncPosition: 1
   _syncRotation: 1
@@ -116,5 +117,26 @@ MonoBehaviour:
   _minBufferSize: 1
   _maxBufferSize: 2
   _characterControllerPatch: 0
-  _ownerAuth: 1
+  _ownerAuth: 0
   _interpolationTiming: 0
+--- !u!114 &-9182859325703072735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8964007400464325882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 677bd470fa0f42e47810fc6e9d27674c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _networkRules: {fileID: 11400000, guid: 747e061513ae392488b31690e00d22c7, type: 2}
+  _visitiblityRules: {fileID: 0}

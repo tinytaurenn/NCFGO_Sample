@@ -821,7 +821,7 @@ PlayerSettings:
   webWasm2023: 0
   webEnableSubmoduleStrippingCompatibility: 0
   scriptingDefineSymbols:
-    Standalone: STEAMWORKS_NET;UTP_LOBBYRELAY;UTP_AUTH
+    Standalone: STEAMWORKS_NET;UTP_LOBBYRELAY;UTP_AUTH;PURR_BUTTONS
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

@@ -7,6 +7,7 @@ using PurrLobby;
 using PurrNet.Steam;
 using Steamworks;
 
+
 public class ConnectionStarter_2 : MonoBehaviour
     {
         PurrTransport m_PurrTransport;
@@ -14,10 +15,10 @@ public class ConnectionStarter_2 : MonoBehaviour
         UDPTransport m_UDPTransport; 
         
         private NetworkManager _networkManager;
-        private LobbyDataHolder _lobbyDataHolder;
+        [SerializeField] private LobbyDataHolder _lobbyDataHolder;
 
 
-        bool m_IsFromLobby;
+        [SerializeField] bool m_IsFromLobby; 
 
         private void Awake()
         {
@@ -38,7 +39,7 @@ public class ConnectionStarter_2 : MonoBehaviour
             _lobbyDataHolder = FindFirstObjectByType<LobbyDataHolder>();
             if (!_lobbyDataHolder)
             {
-                PurrLogger.LogError($"Failed to get {nameof(LobbyDataHolder)} component.", this);
+                PurrLogger.LogWarning($"Failed to get {nameof(LobbyDataHolder)} component.", this);
             }
                
             else

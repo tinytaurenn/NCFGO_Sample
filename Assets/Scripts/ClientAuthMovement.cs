@@ -20,7 +20,7 @@ public class ClientAuthMovement : NetworkBehaviour
 
         if (Keyboard.current.aKey.isPressed)
         {
-            Debug.Log("Moving left");
+            //Debug.Log("Moving left");
             transform.position += new Vector3(-multiplier, 0, 0);
         }
         else if (Keyboard.current.dKey.isPressed)

@@ -226,6 +226,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41ae52bd844483846b59c8bd63371bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lobbyDataHolder: {fileID: 0}
+  m_IsFromLobby: 0
 --- !u!114 &104676498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -730,6 +732,7 @@ GameObject:
   - component: {fileID: 829197086}
   - component: {fileID: 829197085}
   - component: {fileID: 829197084}
+  - component: {fileID: 829197089}
   m_Layer: 0
   m_Name: RPC_Box
   m_TagString: Untagged
@@ -853,6 +856,32 @@ Transform:
   - {fileID: 1989375111}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &829197089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829197083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cb763cfb0fbf2c44b3587223c4aad1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  _trackedBehaviour: {fileID: 829197086}
+  _trackedFields:
+  - type: 1
+    name: enabled
+  _ownerAuth: 1
 --- !u!1 &955483443
 GameObject:
   m_ObjectHideFlags: 0

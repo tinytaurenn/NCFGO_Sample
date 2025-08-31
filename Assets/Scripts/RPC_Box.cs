@@ -68,6 +68,10 @@ public class RPC_Box : NetworkBehaviour
 
         }
 
+        if(Keyboard.current.numpad7Key.isPressed)
+        {
+            GetComponent<Renderer>().enabled = !GetComponent<Renderer>().enabled;
+        }
     }
     [ServerRpc(requireOwnership:false)]
     void SetColor(Color color)
@@ -110,4 +114,6 @@ public class RPC_Box : NetworkBehaviour
         base.OnDestroy();
         m_SimpleTextSync.onChanged -= OnSimpleTextChanged; 
     }
+
+
 }

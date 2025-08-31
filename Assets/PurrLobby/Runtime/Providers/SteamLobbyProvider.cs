@@ -221,6 +221,7 @@ namespace PurrLobby.Providers
 
         public async Task<Lobby> JoinLobbyAsync(string lobbyId)
         {
+            Debug.Log($"Joining lobby {lobbyId}");
             if (!IsSteamClientAvailable || string.IsNullOrEmpty(lobbyId))
                 return default;
 
@@ -232,6 +233,7 @@ namespace PurrLobby.Providers
 
             _LobbyEnter.Set(handle, (result, ioError) =>
             {
+                Debug.Log("lobby enter");
                 if (result.m_EChatRoomEnterResponse == (uint)Steamworks.EChatRoomEnterResponse.k_EChatRoomEnterResponseSuccess)
                 {
                     _currentLobby = new Steamworks.CSteamID(result.m_ulSteamIDLobby);
@@ -354,6 +356,9 @@ namespace PurrLobby.Providers
 
         public Task SetLobbyStartedAsync()
         {
+            Debug.Log("Setting lobby started");
+            Debug.Log(Steamworks.SteamUser.GetSteamID().ToString() + "not working as a lobby id");
+            Debug.Log(_currentLobby.m_SteamID.ToString());
             if (IsSteamClientAvailable)
             {
                 Steamworks.SteamMatchmaking.SetLobbyGameServer(_currentLobby, 0, 0, Steamworks.SteamUser.GetSteamID());
@@ -365,6 +370,7 @@ namespace PurrLobby.Providers
 
         public void SetLobbyStarted(Steamworks.CSteamID serverId)
         {
+            Debug.Log("Setting lobby with ID");
             if (IsSteamClientAvailable)
             {
                 Steamworks.SteamMatchmaking.SetLobbyGameServer(_currentLobby, 0, 0, serverId);
