@@ -3,6 +3,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class RPC_Box : NetworkBehaviour
 {
@@ -68,9 +69,18 @@ public class RPC_Box : NetworkBehaviour
 
         }
 
-        if(Keyboard.current.numpad7Key.isPressed)
+        if(Keyboard.current.numpad7Key.isPressed) // take ownership and toggle renderer with reflection
         {
-            GetComponent<Renderer>().enabled = !GetComponent<Renderer>().enabled;
+            GiveOwnership(localPlayer);
+   
+            ToggleRenderer();
+        }
+        if (Keyboard.current.numpad8Key.isPressed) // does need an ownership
+        {
+
+            if(owner == null) GiveOwnership(localPlayer); // simple to take ownership if the object is not owned
+            ToggleRendererByOwner(owner.Value);
+            
         }
     }
     [ServerRpc(requireOwnership:false)]
@@ -106,6 +116,23 @@ public class RPC_Box : NetworkBehaviour
     void SetTargetText(PlayerID target,int text)
     {
         m_SimpleTextSync.value += text;
+    }
+    void ToggleRenderer()
+    {
+        if(owner != localPlayer)
+        {
+            Debug.Log("no ownership, cannot toggle renderer");
+            return; 
+        }
+        GetComponent<Renderer>().enabled = !GetComponent<Renderer>().enabled;
+
+
+
+    }
+    [TargetRpc]
+    void ToggleRendererByOwner(PlayerID target)
+    {
+        GetComponent<Renderer>().enabled = !GetComponent<Renderer>().enabled;
     }
 
 

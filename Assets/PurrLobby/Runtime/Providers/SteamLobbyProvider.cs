@@ -357,7 +357,7 @@ namespace PurrLobby.Providers
         public Task SetLobbyStartedAsync()
         {
             Debug.Log("Setting lobby started");
-            Debug.Log(Steamworks.SteamUser.GetSteamID().ToString() + "not working as a lobby id");
+            Debug.Log(Steamworks.SteamUser.GetSteamID().ToString() + " not working as a lobby id");
             Debug.Log(_currentLobby.m_SteamID.ToString());
             if (IsSteamClientAvailable)
             {

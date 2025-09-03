@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 0}
-  _playerPrefab: {fileID: 4867059976734381477, guid: 13869765ec5ea2c4295976c4558ada40, type: 3}
+  _playerPrefab: {fileID: 6624917736283092872, guid: c7fed91e3f002804992d11c21359f785, type: 3}
   _ignoreNetworkRules: 0
   spawnPoints:
   - {fileID: 402735711}
@@ -1384,7 +1384,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 0464f67a1519cf947be3cbae5c3cc706, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1707,6 +1707,67 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1001 &7281174859174805595
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5817453591654755634, guid: c7fed91e3f002804992d11c21359f785, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817453591654755634, guid: c7fed91e3f002804992d11c21359f785, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817453591654755634, guid: c7fed91e3f002804992d11c21359f785, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817453591654755634, guid: c7fed91e3f002804992d11c21359f785, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817453591654755634, guid: c7fed91e3f002804992d11c21359f785, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817453591654755634, guid: c7fed91e3f002804992d11c21359f785, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817453591654755634, guid: c7fed91e3f002804992d11c21359f785, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817453591654755634, guid: c7fed91e3f002804992d11c21359f785, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817453591654755634, guid: c7fed91e3f002804992d11c21359f785, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817453591654755634, guid: c7fed91e3f002804992d11c21359f785, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6624917736283092872, guid: c7fed91e3f002804992d11c21359f785, type: 3}
+      propertyPath: m_Name
+      value: Fishman_Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6624917736283092872, guid: c7fed91e3f002804992d11c21359f785, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c7fed91e3f002804992d11c21359f785, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1719,3 +1780,4 @@ SceneRoots:
   - {fileID: 1796724315}
   - {fileID: 402735711}
   - {fileID: 829197088}
+  - {fileID: 7281174859174805595}
