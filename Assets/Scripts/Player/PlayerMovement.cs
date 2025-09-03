@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : CharacterMovement
@@ -52,27 +53,18 @@ public class PlayerMovement : CharacterMovement
         
         if(IsLocked) return;
 
+        m_WorldLookRotation = Quaternion.Slerp(m_WorldLookRotation, m_WorldLookRotation * Quaternion.Euler(0 , MouseDelta.x * m_MouseSensivity, 0), Time.fixedDeltaTime * 10f);
+
         if (m_HorizontalVelocity.magnitude > 0.1)
         {
-            Quaternion bodyTargetRotation = Quaternion.Euler(0, m_NeckTransform.eulerAngles.y, 0);
-            Quaternion slepRot = Quaternion.Slerp(transform.rotation, bodyTargetRotation, Time.fixedDeltaTime * m_RotationSpeed);
+            Quaternion bodyTargetRotation = Quaternion.Euler(0, m_WorldLookRotation.eulerAngles.y, 0);
+            transform.rotation = Quaternion.Slerp(transform.rotation, bodyTargetRotation, Time.fixedDeltaTime * m_RotationSpeed);
 
-            transform.rotation = slepRot;
-
+            
         }
 
-
-
-        float mouseDeltaX = MouseDelta.x * m_MouseSensivity;
-        Debug.Log(mouseDeltaX);
-
-        Quaternion newRotation = Quaternion.Euler(0, mouseDeltaX, 0);
-        m_WorldLookRotation = Quaternion.Lerp(m_WorldLookRotation, m_WorldLookRotation * newRotation, Time.fixedDeltaTime * m_RotationSpeed);
-        m_NeckTransform.rotation = Quaternion.Lerp(m_WorldLookRotation, m_WorldLookRotation * newRotation, Time.fixedDeltaTime * m_RotationSpeed);
-
-        //return;
-        
-        
+        Quaternion localTargetRot = Quaternion.Inverse(m_NeckTransform.parent.rotation) * m_WorldLookRotation;
+        m_NeckTransform.localRotation = localTargetRot;
 
 
 
