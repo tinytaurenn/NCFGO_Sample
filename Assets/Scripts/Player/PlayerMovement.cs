@@ -23,10 +23,12 @@ public class PlayerMovement : CharacterMovement
 
 
     [SerializeField] Transform m_NeckTransform;
+    Quaternion m_WorldLookRotation; 
 
     protected override void Awake()
     {
         base.Awake();
+        m_WorldLookRotation = m_NeckTransform.rotation;
     }
     protected override void Start()
     {
@@ -50,23 +52,39 @@ public class PlayerMovement : CharacterMovement
         
         if(IsLocked) return;
 
+        if (m_HorizontalVelocity.magnitude > 0.1)
+        {
+            Quaternion bodyTargetRotation = Quaternion.Euler(0, m_NeckTransform.eulerAngles.y, 0);
+            Quaternion slepRot = Quaternion.Slerp(transform.rotation, bodyTargetRotation, Time.fixedDeltaTime * m_RotationSpeed);
+
+            transform.rotation = slepRot;
+
+        }
+
+
+
         float mouseDeltaX = MouseDelta.x * m_MouseSensivity;
+        Debug.Log(mouseDeltaX);
 
         Quaternion newRotation = Quaternion.Euler(0, mouseDeltaX, 0);
-        m_NeckTransform.rotation = Quaternion.Lerp(m_NeckTransform.rotation, m_NeckTransform.rotation * newRotation, Time.fixedDeltaTime * m_RotationSpeed);
+        m_WorldLookRotation = Quaternion.Lerp(m_WorldLookRotation, m_WorldLookRotation * newRotation, Time.fixedDeltaTime * m_RotationSpeed);
+        m_NeckTransform.rotation = Quaternion.Lerp(m_WorldLookRotation, m_WorldLookRotation * newRotation, Time.fixedDeltaTime * m_RotationSpeed);
 
         //return;
-        if (m_HorizontalVelocity.magnitude < 0.1) return; 
-
-
-        Quaternion bodyTargetRotation = Quaternion.Euler(0, m_NeckTransform.eulerAngles.y, 0);
-        Quaternion slepRot = Quaternion.Slerp(transform.rotation, bodyTargetRotation, Time.fixedDeltaTime * m_RotationSpeed);
-
-        // Interpoler la rotation du corps vers la rotation de la tête.
-        transform.rotation = slepRot;
+        
+        
 
 
 
 
     }
+    private void OnDrawGizmos()
+    {
+        //draw a spherewith  world look direction at 10 distance
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(m_NeckTransform.position + (m_WorldLookRotation * Vector3.forward * 10f), 0.2f);
+       
+        
+    }
+
 }
