@@ -227,6 +227,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9140253385185518857, guid: aa797be480f4f1b4da42ddbec0e7a4c1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.211
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140253385185518857, guid: aa797be480f4f1b4da42ddbec0e7a4c1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140253385185518857, guid: aa797be480f4f1b4da42ddbec0e7a4c1, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
@@ -455,6 +463,7 @@ MonoBehaviour:
   m_LookValue: 0
   m_VerticalLookSensivity: 0.5
   m_NeckTransform: {fileID: 3020141028113969104}
+  m_PlayerCamera: {fileID: 5958349205422747976}
 --- !u!114 &880056452298996571
 MonoBehaviour:
   m_ObjectHideFlags: 0

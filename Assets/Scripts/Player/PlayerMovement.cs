@@ -24,7 +24,8 @@ public class PlayerMovement : CharacterMovement
 
 
     [SerializeField] Transform m_NeckTransform;
-    Quaternion m_WorldLookRotation; 
+    Quaternion m_WorldLookRotation;
+    //[SerializeField] PlayerCamera m_PlayerCamera; 
 
     protected override void Awake()
     {
@@ -33,7 +34,7 @@ public class PlayerMovement : CharacterMovement
     }
     protected override void Start()
     {
-        base.Start(); 
+        base.Start();
     }
 
     // Update is called once per frame
@@ -65,6 +66,7 @@ public class PlayerMovement : CharacterMovement
 
         Quaternion localTargetRot = Quaternion.Inverse(m_NeckTransform.parent.rotation) * m_WorldLookRotation;
         m_NeckTransform.localRotation = localTargetRot;
+        //m_PlayerCamera.LookPos = m_NeckTransform.position + (m_WorldLookRotation * Vector3.forward * 10f); 
 
 
 
