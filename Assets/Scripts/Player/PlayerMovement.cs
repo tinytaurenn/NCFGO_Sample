@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerMovement : CharacterMovement
 {
+    
     public Vector2 MouseDelta { get; set; }
     public float m_MouseSensivity = 1f; // mouse sensitivity
 
@@ -13,10 +14,15 @@ public class PlayerMovement : CharacterMovement
     public float BackWardspeedModifier => m_BackWardspeedModifier;
     public float StrafeSpeedModifier => m_StrafeSpeedModifier;
 
+    [Space(10)]
+    [Header("Player Look ")]
     [SerializeField] float m_LookRange = 1f;
     [SerializeField] float m_LookValue = 0f;
     public float LookValue => m_LookValue;
     [SerializeField] float m_VerticalLookSensivity = 0.5f;
+
+
+    [SerializeField] Transform m_NeckTransform;
 
     protected override void Awake()
     {
@@ -41,12 +47,26 @@ public class PlayerMovement : CharacterMovement
     protected override void MovementUpdate()
     {
         base.MovementUpdate();
+        
         if(IsLocked) return;
 
-        Quaternion rot = Quaternion.LookRotation(m_HorizontalVelocity, Vector3.up);
-        Quaternion newRot = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * m_RotationSpeed);
+        float mouseDeltaX = MouseDelta.x * m_MouseSensivity;
 
-        if (m_HorizontalVelocity.magnitude > 0.1) transform.rotation = newRot; 
+        Quaternion newRotation = Quaternion.Euler(0, mouseDeltaX, 0);
+        m_NeckTransform.rotation = Quaternion.Lerp(m_NeckTransform.rotation, m_NeckTransform.rotation * newRotation, Time.fixedDeltaTime * m_RotationSpeed);
+
+        //return;
+        if (m_HorizontalVelocity.magnitude < 0.1) return; 
+
+
+        Quaternion bodyTargetRotation = Quaternion.Euler(0, m_NeckTransform.eulerAngles.y, 0);
+        Quaternion slepRot = Quaternion.Slerp(transform.rotation, bodyTargetRotation, Time.fixedDeltaTime * m_RotationSpeed);
+
+        // Interpoler la rotation du corps vers la rotation de la tête.
+        transform.rotation = slepRot;
+
+
+
 
     }
 }

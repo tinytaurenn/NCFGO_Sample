@@ -3,7 +3,8 @@ using UnityEngine;
 public class PlayerControls : MonoBehaviour
 {
     InputSystem_Actions m_InputActions;
-    [SerializeField] PlayerMovement m_PlayerMovement; 
+    [SerializeField] PlayerMovement m_PlayerMovement;
+    [SerializeField] PlayerCamera m_PlayerCamera; 
 
     Vector2 m_MoveValue;
 
@@ -20,6 +21,7 @@ public class PlayerControls : MonoBehaviour
     void Update()
     {
         SetMovementValue(m_InputActions.Player.Move.ReadValue<Vector2>());
+        m_PlayerMovement.MouseDelta = m_InputActions.Player.Look.ReadValue<Vector2>();
     }
     private void OnEnable()
     {
@@ -37,8 +39,8 @@ public class PlayerControls : MonoBehaviour
     {
         m_MoveValue = moveInput;
         //Debug.Log("Movement Input: " + moveInput);
-        Vector3 forward = transform.forward; 
-        Vector3 right = transform.right;
+        Vector3 forward = m_PlayerCamera.transform.forward; 
+        Vector3 right = m_PlayerCamera.transform.right;
 
         m_PlayerMovement.MoveInput = right * m_MoveValue.x + forward * m_MoveValue.y;
 
