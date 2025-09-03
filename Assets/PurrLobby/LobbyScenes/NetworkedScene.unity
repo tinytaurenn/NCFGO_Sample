@@ -1956,10 +1956,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5958349205422747976, guid: c7fed91e3f002804992d11c21359f785, type: 3}
-      propertyPath: m_Anchor
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6624917736283092872, guid: c7fed91e3f002804992d11c21359f785, type: 3}
       propertyPath: m_Name
       value: Fishman_Player

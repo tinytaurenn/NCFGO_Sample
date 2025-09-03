@@ -1,10 +1,11 @@
+using PurrNet;
 using UnityEngine;
 
 public abstract class CharacterMovement : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected Rigidbody m_rigidBody;
-    [SerializeField] protected Animator m_Animator;
+    [SerializeField] protected NetworkAnimator m_Animator;
 
     public Vector3 MoveInput { get; set; }
     public bool IsSprinting { get; set; }
@@ -422,7 +423,11 @@ public abstract class CharacterMovement : MonoBehaviour
             animSpeed = 0f; // avoid animator to read extreme values
 
         }
-
+        //Debug.Log("moveinput is" + MoveInput.ToString());
+        m_Animator.SetFloat("VelocityZ", MoveInput.z);
+        m_Animator.SetFloat("VelocityX", MoveInput.x);
+        
+           
         //m_Animator.SetFloat("MoveSpeed", animSpeed);
         //m_Animator.SetBool("Grounded", m_Isgrounded);
 
