@@ -1013,7 +1013,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &896390692
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1053,9 +1053,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41415c75a4c87cd4790f56193f713fce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  maxSpeed: 10
+  m_Animator: {fileID: 0}
+  m_MoveSpeed: 5
+  m_MaxSpeed: 10
+  m_RotationSpeed: 8
   m_IsGrounded: 0
+  m_SprintMultiplier: 1.5
   m_StepHeight: 1
   m_StepDistance: 1
   m_StepSmoothSpeed: 1
@@ -1685,13 +1688,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1418470599}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.22815274, w: 0.9736254}
-  m_LocalPosition: {x: 7.0723, y: -0.1439, z: -7.42338}
+  m_LocalRotation: {x: -0.17164242, y: -0.7324704, z: 0.15030856, w: 0.6414307}
+  m_LocalPosition: {x: -6.52, y: -0.1439, z: 3.68}
   m_LocalScale: {x: 4.5246587, y: 0.82449454, z: 1.7513}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 26.377}
+  m_LocalEulerAnglesHint: {x: 0, y: -97.582, z: 26.377}
 --- !u!1 &1479722384
 GameObject:
   m_ObjectHideFlags: 0
@@ -2688,7 +2691,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6624917736283092872, guid: c7fed91e3f002804992d11c21359f785, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerMovement : CharacterMovement
+public class PlayerMovement : BetterRBCharMovement
 {
     
     public Vector2 MouseDelta { get; set; }
@@ -57,7 +57,7 @@ public class PlayerMovement : CharacterMovement
 
         m_WorldLookRotation = Quaternion.Slerp(m_WorldLookRotation, m_WorldLookRotation * Quaternion.Euler(0 , MouseDelta.x * m_MouseSensivity, 0), Time.fixedDeltaTime * 10f);
 
-        if (m_HorizontalVelocity.magnitude > 0.1)
+        if (m_RigidBody.linearVelocity.magnitude > 0.1)
         {
             Quaternion bodyTargetRotation = Quaternion.Euler(0, m_WorldLookRotation.eulerAngles.y, 0);
             transform.rotation = Quaternion.Slerp(transform.rotation, bodyTargetRotation, Time.fixedDeltaTime * m_RotationSpeed);
