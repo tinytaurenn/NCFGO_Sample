@@ -21,13 +21,11 @@ public class BetterRBCharMovement : MonoBehaviour
 
 
    [Header("Stair Stepping")]
-    public float m_StepHeight = 0.3f;
-    public float m_StepDistance = 0.5f;
-    public float m_StepSmoothSpeed = 10f;
-    public float m_StepUpOffset = 0.05f;
-    public float distanceStepMultiplier = 1f; 
-    public LayerMask m_WalkableLayer;
-    private CapsuleCollider m_CapsuleCollider;
+    [SerializeField] float m_StepHeight = 0.3f;
+    [SerializeField] float m_StepDistance = 0.5f;
+    [SerializeField] float distanceStepMultiplier = 1f;
+    [SerializeField] LayerMask m_WalkableLayer;
+    [SerializeField] CapsuleCollider m_CapsuleCollider;
 
     protected virtual void Awake()
     {
@@ -59,14 +57,32 @@ public class BetterRBCharMovement : MonoBehaviour
 
     protected virtual void MovementUpdate()
     {
+        Vector3 moveDir = MoveInput;
         Checkgrounded();
+
+        if (m_IsGrounded)
+        {
+            RaycastHit hit;
+            // Cast a ray down from the character to get the ground's normal
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, m_CapsuleCollider.height / 2f + 0.1f, m_WalkableLayer))
+            {
+                // Project the movement direction onto the plane of the ground
+                moveDir = Vector3.ProjectOnPlane(moveDir, hit.normal).normalized;
+            }
+        }
 
         // Handle stairs BEFORE the movement calculation
         HandleStairs();
 
         Vector3 velocity = m_RigidBody.linearVelocity;
-        Vector3 targetVelocity = MoveInput * m_MoveSpeed;
+        Vector3 targetVelocity = moveDir * m_MoveSpeed;
         //targetVelocity = transform.TransformDirection(targetVelocity);
+
+        if (IsSprinting)
+        {
+            targetVelocity *= m_SprintMultiplier;
+        }
+
 
         Vector3 velocityChange = targetVelocity - velocity;
         velocityChange = new Vector3(velocityChange.x, 0, velocityChange.z);
@@ -101,7 +117,7 @@ public class BetterRBCharMovement : MonoBehaviour
             {
                 if (!Physics.Raycast(upperRayOrigin, forwardDir, m_StepDistance, m_WalkableLayer))
                 {
-                    Vector3 force = Vector3.up * m_StepSmoothSpeed * (distanceToStepTop * distanceStepMultiplier); 
+                    Vector3 force = Vector3.up * m_StepHeight;  
                     //
                     float highestHitY = GetHighestHitY(lowerRayOrigin, forwardDir, m_StepDistance, m_StepHeight, m_WalkableLayer);
                     ;
@@ -112,7 +128,7 @@ public class BetterRBCharMovement : MonoBehaviour
                         force = Vector3.up * heightDifference * distanceStepMultiplier; 
                     }
 
-                    Debug.Log("adding force");
+                    //Debug.Log("adding force");
                     m_RigidBody.AddForce(force, ForceMode.VelocityChange);
                 }
             }
@@ -205,6 +221,20 @@ public class BetterRBCharMovement : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(upperRayOrigin, 0.05f);
         Gizmos.DrawRay(upperRayOrigin, forwardDir * m_StepDistance);
+
+        Gizmos.color = Color.green;
+        Vector3 moveDir = MoveInput;
+        if (m_IsGrounded)
+        {
+            RaycastHit hit;
+            // Cast a ray down from the character to get the ground's normal
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, m_CapsuleCollider.height / 2f + 0.1f, m_WalkableLayer))
+            {
+                // Project the movement direction onto the plane of the ground
+                moveDir = Vector3.ProjectOnPlane(moveDir, hit.normal).normalized;
+                Gizmos.DrawRay(transform.position,moveDir*2);
+            }
+        }
 
     }
 }

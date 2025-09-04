@@ -1061,12 +1061,11 @@ MonoBehaviour:
   m_SprintMultiplier: 1.5
   m_StepHeight: 1
   m_StepDistance: 1
-  m_StepSmoothSpeed: 1
-  m_StepUpOffset: 0.05
   distanceStepMultiplier: 6
   m_WalkableLayer:
     serializedVersion: 2
     m_Bits: 1
+  m_CapsuleCollider: {fileID: 0}
 --- !u!136 &896390694
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2685,17 +2684,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6356818469277179427, guid: c7fed91e3f002804992d11c21359f785, type: 3}
-      propertyPath: distanceStepMultiplier
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6624917736283092872, guid: c7fed91e3f002804992d11c21359f785, type: 3}
       propertyPath: m_Name
       value: Fishman_Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 6624917736283092872, guid: c7fed91e3f002804992d11c21359f785, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

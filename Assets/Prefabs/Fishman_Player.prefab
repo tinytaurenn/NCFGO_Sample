@@ -693,7 +693,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3691233811179540242}
-  - {fileID: 2602877550735954103}
+  - {fileID: 695834201867031289}
   m_Father: {fileID: 8624786674983553552}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3604062194385668818
@@ -1100,6 +1100,38 @@ Transform:
   m_Children:
   - {fileID: 9001470525933971184}
   m_Father: {fileID: 7383746014294107406}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4862828195329909280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 695834201867031289}
+  m_Layer: 0
+  m_Name: CamAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &695834201867031289
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4862828195329909280}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.286, z: 0.352}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2602877550735954103}
+  m_Father: {fileID: 3020141028113969104}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5116127629073291512
 GameObject:
@@ -1557,12 +1589,11 @@ MonoBehaviour:
   m_SprintMultiplier: 1.5
   m_StepHeight: 0.75
   m_StepDistance: 0.9
-  m_StepSmoothSpeed: 10
-  m_StepUpOffset: 0.05
-  distanceStepMultiplier: 0.3
+  distanceStepMultiplier: 5.7
   m_WalkableLayer:
     serializedVersion: 2
     m_Bits: 1
+  m_CapsuleCollider: {fileID: 0}
   m_MouseSensivity: 1
   m_BackWardspeedModifier: 0.5
   m_StrafeSpeedModifier: 0.75
@@ -2063,11 +2094,11 @@ Transform:
   m_GameObject: {fileID: 8940515278183830261}
   serializedVersion: 2
   m_LocalRotation: {x: -9.313226e-10, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.286, z: 0.352}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3020141028113969104}
+  m_Father: {fileID: 695834201867031289}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &1853531928803321472
 Camera:
@@ -2184,3 +2215,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a307a11461f37b147b6293625c76eb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MouseSensivity: 8
+  rotationClamp: 20

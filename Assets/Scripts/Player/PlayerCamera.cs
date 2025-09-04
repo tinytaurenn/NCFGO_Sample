@@ -2,26 +2,23 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public Vector2 MouseDelta { get; set; }
+    [SerializeField] float m_MouseSensivity = 8f; // mouse sensitivity
+    [SerializeField] float rotationClamp = 30f; 
+    float currentXRotation = 0f;
+    private void FixedUpdate()
+    {
+        if (MouseDelta.magnitude > 0)
+        {
+            // Apply the rotation
+            currentXRotation -= MouseDelta.y * m_MouseSensivity * Time.fixedDeltaTime;
 
-    //public Vector3 LookPos { get; set; }
-    //[SerializeField] Transform m_Anchor;
-    //private void Start()
-    //{
+            // Clamp the new rotation value directly
+            currentXRotation = Mathf.Clamp(currentXRotation, -rotationClamp, rotationClamp);
 
-    //    GameObject go = new GameObject("CameraAnchor");
-    //    go.transform.parent = transform.parent;
-    //    go.transform.position = transform.position;
-    //    go.transform.rotation = transform.rotation;
-
-    //    m_Anchor = go.transform;
-
-    //    transform.parent = null; 
-    //}
-    //private void FixedUpdate()
-    //{
-    //    transform.position = m_Anchor.position; 
-    //    transform.LookAt(LookPos);
-    //}
+            // Apply the new rotation to the transform's local Euler angles
+            transform.localEulerAngles = new Vector3(currentXRotation, transform.localEulerAngles.y, 0);
+        }
+    }
 
 }

@@ -22,6 +22,7 @@ public class PlayerControls : MonoBehaviour
     {
         SetMovementValue(m_InputActions.Player.Move.ReadValue<Vector2>());
         m_PlayerMovement.MouseDelta = m_InputActions.Player.Look.ReadValue<Vector2>();
+        m_PlayerCamera.MouseDelta = m_InputActions.Player.Look.ReadValue<Vector2>();
         SetIsSprinting(m_InputActions.Player.Sprint.IsPressed());
     }
     private void OnEnable()
@@ -42,8 +43,8 @@ public class PlayerControls : MonoBehaviour
         m_MoveValue = moveInput;
 
         //Debug.Log("Movement Input: " + moveInput);
-        Vector3 forward = m_PlayerCamera.transform.forward; 
-        Vector3 right = m_PlayerCamera.transform.right;
+        Vector3 forward = m_PlayerCamera.transform.parent.forward; 
+        Vector3 right = m_PlayerCamera.transform.parent.right;
         if(m_MoveValue.y <0)
         {
             m_MoveValue.y *= m_PlayerMovement.BackWardspeedModifier; 
