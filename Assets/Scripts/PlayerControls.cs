@@ -40,6 +40,7 @@ public class PlayerControls : MonoBehaviour
         //Debug.Log("Movement Input: " + moveInput);
         Vector3 forward = m_PlayerCamera.transform.forward; 
         Vector3 right = m_PlayerCamera.transform.right;
+        m_PlayerMovement.MoveInputRaw = moveInput;
 
         m_PlayerMovement.MoveInput = right * m_MoveValue.x + forward * m_MoveValue.y;
 

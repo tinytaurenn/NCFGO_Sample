@@ -64,18 +64,17 @@ public class PlayerMovement : CharacterMovement
             
         }
 
-       
+
         //m_PlayerCamera.LookPos = m_NeckTransform.position + (m_WorldLookRotation * Vector3.forward * 10f); 
 
-
+        Quaternion localTargetRot = Quaternion.Inverse(m_NeckTransform.parent.rotation) * m_WorldLookRotation;
+        m_NeckTransform.localRotation = localTargetRot;
 
 
     }
 
     private void LateUpdate()
     {
-        Quaternion localTargetRot = Quaternion.Inverse(m_NeckTransform.parent.rotation) * m_WorldLookRotation;
-        m_NeckTransform.localRotation = localTargetRot;
     }
     private void OnDrawGizmos()
     {

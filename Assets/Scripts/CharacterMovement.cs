@@ -8,6 +8,8 @@ public abstract class CharacterMovement : MonoBehaviour
     [SerializeField] protected NetworkAnimator m_Animator;
 
     public Vector3 MoveInput { get; set; }
+    public Vector3 MoveInputRaw { get; set; }
+    public Vector3 PreviousMoveInputRaw { get; set; }
     public bool IsSprinting { get; set; }
 
     public bool IsLocked { get; private set; }
@@ -424,8 +426,11 @@ public abstract class CharacterMovement : MonoBehaviour
 
         }
         //Debug.Log("moveinput is" + MoveInput.ToString());
-        m_Animator.SetFloat("VelocityZ", MoveInput.z);
-        m_Animator.SetFloat("VelocityX", MoveInput.x);
+        Vector2 newMoveInput = Vector2.Lerp(PreviousMoveInputRaw, MoveInputRaw, Time.deltaTime * 5f);
+        if(newMoveInput.magnitude < 0.01f) newMoveInput = Vector2.zero;
+        PreviousMoveInputRaw = newMoveInput;
+        m_Animator.SetFloat("VelocityZ", newMoveInput.y);
+        m_Animator.SetFloat("VelocityX", newMoveInput.x);
         
            
         //m_Animator.SetFloat("MoveSpeed", animSpeed);
