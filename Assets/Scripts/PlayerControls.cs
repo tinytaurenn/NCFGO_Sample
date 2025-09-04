@@ -1,3 +1,4 @@
+using Steamworks;
 using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
@@ -21,6 +22,7 @@ public class PlayerControls : MonoBehaviour
     {
         SetMovementValue(m_InputActions.Player.Move.ReadValue<Vector2>());
         m_PlayerMovement.MouseDelta = m_InputActions.Player.Look.ReadValue<Vector2>();
+        SetIsSprinting(m_InputActions.Player.Sprint.IsPressed());
     }
     private void OnEnable()
     {
@@ -36,15 +38,27 @@ public class PlayerControls : MonoBehaviour
 
     void SetMovementValue(Vector2 moveInput)
     {
+        
         m_MoveValue = moveInput;
+
         //Debug.Log("Movement Input: " + moveInput);
         Vector3 forward = m_PlayerCamera.transform.forward; 
         Vector3 right = m_PlayerCamera.transform.right;
+        if(m_MoveValue.y <0)
+        {
+            m_MoveValue.y *= m_PlayerMovement.BackWardspeedModifier; 
+        }
+        m_PlayerMovement.MoveInput = right * (m_MoveValue.x * m_PlayerMovement.StrafeSpeedModifier) + forward * m_MoveValue.y;
         m_PlayerMovement.MoveInputRaw = moveInput;
 
         m_PlayerMovement.MoveInput = right * m_MoveValue.x + forward * m_MoveValue.y;
 
 
 
+    }
+
+    void SetIsSprinting(bool isSprinting)
+    {
+        m_PlayerMovement.IsSprinting = isSprinting;
     }
 }

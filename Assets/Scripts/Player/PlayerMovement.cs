@@ -50,6 +50,7 @@ public class PlayerMovement : CharacterMovement
     }
     protected override void MovementUpdate()
     {
+
         base.MovementUpdate();
         
         if(IsLocked) return;

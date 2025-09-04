@@ -429,6 +429,7 @@ public abstract class CharacterMovement : MonoBehaviour
         Vector2 newMoveInput = Vector2.Lerp(PreviousMoveInputRaw, MoveInputRaw, Time.deltaTime * 5f);
         if(newMoveInput.magnitude < 0.01f) newMoveInput = Vector2.zero;
         PreviousMoveInputRaw = newMoveInput;
+        if(IsSprinting && newMoveInput.y > 0.5f) newMoveInput *= m_SprintMultiplier;
         m_Animator.SetFloat("VelocityZ", newMoveInput.y);
         m_Animator.SetFloat("VelocityX", newMoveInput.x);
         

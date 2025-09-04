@@ -1550,7 +1550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 2153983115211038395}
-  m_MovementSpeed: 7
+  m_MovementSpeed: 5
   m_SprintMultiplier: 1.5
   m_RotationSpeed: 8
   m_Acceleration: 10
