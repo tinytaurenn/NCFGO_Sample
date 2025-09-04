@@ -103,11 +103,12 @@ public class BetterRBCharMovement : MonoBehaviour
                 {
                     Vector3 force = Vector3.up * m_StepSmoothSpeed * (distanceToStepTop * distanceStepMultiplier); 
                     //
-                    float highestHitY = GetHighestHitY(capsuleBase, MoveInput, m_StepDistance, m_StepHeight, m_WalkableLayer);
-                    Debug.Log(highestHitY);
+                    float highestHitY = GetHighestHitY(lowerRayOrigin, forwardDir, m_StepDistance, m_StepHeight, m_WalkableLayer);
+                    ;
                     if (highestHitY != -1)
                     {
                         float heightDifference = highestHitY - capsuleBase.y;
+                        Debug.Log(heightDifference); 
                         force = Vector3.up * heightDifference * distanceStepMultiplier; 
                     }
 
@@ -162,18 +163,15 @@ public class BetterRBCharMovement : MonoBehaviour
         {
             Vector3 rayOrigin = origin + Vector3.up * yOffset;
             RaycastHit hit;
+            
 
             if (Physics.Raycast(rayOrigin, direction, out hit, distance, layerMask))
             {
                 // Check if the surface is vertical enough to be a stair face
-                if (Vector3.Dot(hit.normal, Vector3.up) < 0.1f)
+                if (!foundHit || hit.point.y > highestHit.point.y)
                 {
-                    // We've found a hit, check if it's the highest one so far
-                    if (!foundHit || hit.point.y > highestHit.point.y)
-                    {
-                        highestHit = hit;
-                        foundHit = true;
-                    }
+                    highestHit = hit;
+                    foundHit = true;
                 }
             }
         }
