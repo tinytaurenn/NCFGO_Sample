@@ -163,21 +163,32 @@ public abstract class CharacterMovement : MonoBehaviour
         m_CurrentSpeed = IsSprinting ? m_MovementSpeed * m_SprintMultiplier : m_MovementSpeed;
 
         m_HorizontalVelocity = (vectorDelta) * m_CurrentSpeed;
+        CapsuleCollider m_CapsuleCollider = GetComponent<CapsuleCollider>();
 
         //STEPS
+        float capsuleBaseY = transform.position.y + m_CapsuleCollider.center.y - m_CapsuleCollider.height / 2f;
+        Vector3 capsuleBase = new Vector3(transform.position.x, capsuleBaseY, transform.position.z);
 
-        Vector3 stepPos = transform.position + Vector3.up * m_StepMoveHeight + MoveInput * 1;
-        Vector3 stepCheck = transform.position + Vector3.up * 0.1f + MoveInput * 1;
-        m_StepRay = (stepPos - transform.position).normalized;
-        Vector3 checkRay = (stepCheck - transform.position).normalized;
+        // Origins for the two raycasts, starting from the base
+        Vector3 lowerRayOrigin = capsuleBase + transform.forward * m_StepDistance * 0.1f ; // Small offset from the ground
+        Vector3 upperRayOrigin = capsuleBase + transform.forward * m_StepDistance * 0.1f + Vector3.up * (m_StepHeight + 0.05f);
 
-        if (m_IsStepping = StepCheck(out m_StepRay, out float stepHeight))
+        RaycastHit lowerHit;
+
+        // Cast a ray forward from the base to detect a wall
+        if (Physics.Raycast(lowerRayOrigin, transform.forward, out lowerHit, m_StepDistance, m_WalkableLayer))
         {
-            if (stepHeight <= m_StepHeight)
+            Debug.Log("move up detect");
+            // Cast a ray from the step height to check if the space is clear
+            if (!Physics.Raycast(upperRayOrigin, transform.forward, m_StepDistance, m_WalkableLayer))
             {
-                m_rigidBody.position += Vector3.up * m_StepHeightSmooth;
+                Debug.Log("move up");
+                // Calculate the target Y position based on the hit point
+                Vector3 targetPosition = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+
+                // Smoothly move the player up
+                transform.position = Vector3.Lerp(transform.position, targetPosition, Time.fixedDeltaTime * m_StepHeightSmooth);
             }
-            m_HorizontalVelocity += m_StepRay * m_StepSpeed;
         }
         //
 
@@ -539,12 +550,13 @@ public abstract class CharacterMovement : MonoBehaviour
 
         if (!Physics.Raycast(transform.position, checkRay, m_StepDistance, m_WalkableLayer))
         {
+            
 
             return false;
         }
         if (Physics.Raycast(transform.position, wallRay, m_StepDistance, m_WalkableLayer))
         {
-            //Debug.Log("wall rayed"); 
+            
             return false;
         }
 
@@ -600,18 +612,14 @@ public abstract class CharacterMovement : MonoBehaviour
     }
 
 
-    private void OnDrawGizmos()
+    protected virtual void OnDrawGizmos()
     {
-
         BorderDetectionGizmos();
-
-
-
-
     }
 
     void BorderDetectionGizmos()
     {
+
         //Vector3 raySpawnPos = transform.position + Vector3.down * m_SlipRayDistance;
 
         //Vector3 forward = transform.forward * m_SlipCheckDistance;
@@ -643,7 +651,7 @@ public abstract class CharacterMovement : MonoBehaviour
         //Gizmos.color = (Physics.Raycast(leftRay, m_SlipCheckDistance, m_WalkableLayer)) ? Color.green : Color.yellow;
         //Gizmos.DrawRay(raySpawnPos, left);
 
-        ////downs 
+        //downs
 
         //Gizmos.color = (Physics.Raycast(frontDownRay, m_SlipCheckDistance, m_WalkableLayer)) ? Color.green : Color.yellow;
         //Gizmos.DrawRay(raySpawnPos + forward, Vector3.down);
@@ -656,21 +664,28 @@ public abstract class CharacterMovement : MonoBehaviour
 
         //Gizmos.color = Color.blue;
 
-        //
 
-        //if(StepCheck(out Vector3 ray,out float stepHeight))
+
+        //if (StepCheck(out Vector3 ray, out float stepHeight))
         //{
         //    Debug.Log("step height is : " + stepHeight);
         //    Gizmos.DrawRay(transform.position, ray);
         //}
 
+        CapsuleCollider m_CapsuleCollider = GetComponent<CapsuleCollider>();
+
+        float capsuleBaseY = transform.position.y + m_CapsuleCollider.center.y - m_CapsuleCollider.height / 2f;
+        Vector3 capsuleBase = new Vector3(transform.position.x, capsuleBaseY, transform.position.z);
+
+        Vector3 lowerRayOrigin = capsuleBase + transform.forward * m_StepDistance * 0.1f; // Small offset from the ground
+        Vector3 upperRayOrigin = capsuleBase + transform.forward * m_StepDistance * 0.1f + Vector3.up * (m_StepHeight + 0.05f);
+        Gizmos.DrawWireSphere(lowerRayOrigin, 0.05f);
+        Gizmos.DrawRay(lowerRayOrigin, transform.forward * m_StepDistance); 
+
+        Gizmos.color = Color.blue; 
+        Gizmos.DrawWireSphere(upperRayOrigin, 0.05f);
+        Gizmos.DrawRay(upperRayOrigin, transform.forward * m_StepDistance);
 
 
-
-        Gizmos.color = Color.magenta;
-
-
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawRay(transform.position, MoveInput);
     }
 }

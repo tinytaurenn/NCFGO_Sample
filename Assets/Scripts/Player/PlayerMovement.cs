@@ -77,9 +77,9 @@ public class PlayerMovement : CharacterMovement
     private void LateUpdate()
     {
     }
-    private void OnDrawGizmos()
+    protected override void OnDrawGizmos()
     {
-        //draw a spherewith  world look direction at 10 distance
+        base.OnDrawGizmos(); 
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(m_NeckTransform.position + (m_WorldLookRotation * Vector3.forward * 10f), 0.2f);
        
