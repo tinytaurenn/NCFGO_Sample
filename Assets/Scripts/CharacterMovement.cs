@@ -121,6 +121,8 @@ public abstract class CharacterMovement : MonoBehaviour
         Vector3 rigidBodyVelocity = m_rigidBody.linearVelocity;
         VerticalMovement(rigidBodyVelocity);
 
+        HandleSteps(); 
+
         float magnitude = MoveInput.magnitude;
 
         if (IsLocked && magnitude > 0.2f && m_Animator.GetBool("Seated"))
@@ -163,34 +165,8 @@ public abstract class CharacterMovement : MonoBehaviour
         m_CurrentSpeed = IsSprinting ? m_MovementSpeed * m_SprintMultiplier : m_MovementSpeed;
 
         m_HorizontalVelocity = (vectorDelta) * m_CurrentSpeed;
-        CapsuleCollider m_CapsuleCollider = GetComponent<CapsuleCollider>();
 
-        //STEPS
-        float capsuleBaseY = transform.position.y + m_CapsuleCollider.center.y - m_CapsuleCollider.height / 2f;
-        Vector3 capsuleBase = new Vector3(transform.position.x, capsuleBaseY, transform.position.z);
 
-        // Origins for the two raycasts, starting from the base
-        Vector3 lowerRayOrigin = capsuleBase + transform.forward * m_StepDistance * 0.1f ; // Small offset from the ground
-        Vector3 upperRayOrigin = capsuleBase + transform.forward * m_StepDistance * 0.1f + Vector3.up * (m_StepHeight + 0.05f);
-
-        RaycastHit lowerHit;
-
-        // Cast a ray forward from the base to detect a wall
-        if (Physics.Raycast(lowerRayOrigin, transform.forward, out lowerHit, m_StepDistance, m_WalkableLayer))
-        {
-            Debug.Log("move up detect");
-            // Cast a ray from the step height to check if the space is clear
-            if (!Physics.Raycast(upperRayOrigin, transform.forward, m_StepDistance, m_WalkableLayer))
-            {
-                Debug.Log("move up");
-                // Calculate the target Y position based on the hit point
-                Vector3 targetPosition = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
-
-                // Smoothly move the player up
-                transform.position = Vector3.Lerp(transform.position, targetPosition, Time.fixedDeltaTime * m_StepHeightSmooth);
-            }
-        }
-        //
 
 
         //next frame
@@ -217,6 +193,65 @@ public abstract class CharacterMovement : MonoBehaviour
 
 
         UpdateAnimator();
+
+    }
+    void HandleSteps()
+    {
+        CapsuleCollider m_CapsuleCollider = GetComponent<CapsuleCollider>();
+        //float capsuleBaseY = transform.position.y + m_CapsuleCollider.center.y - m_CapsuleCollider.height / 2f;
+        //Vector3 capsuleBase = new Vector3(transform.position.x, capsuleBaseY, transform.position.z);
+
+        //// Origins for the two raycasts, starting from the base
+        //Vector3 lowerRayOrigin = transform.position + Vector3.up * 0.1f;
+        //Vector3 upperRayOrigin = transform.position + Vector3.up * (0.1f + m_StepHeight);
+
+
+        //// Cast a ray forward from the base to detect a wall
+        //RaycastHit lowerHit;
+
+        //// Check for a wall at foot level
+        //if (Physics.Raycast(lowerRayOrigin, transform.forward, out lowerHit, m_StepDistance, m_WalkableLayer))
+        //{
+        //    // Check if the space above is clear
+        //    if (!Physics.Raycast(upperRayOrigin, transform.forward, m_StepDistance, m_WalkableLayer))
+        //    {
+        //        // Calculate the target position on the step
+        //        Vector3 targetPosition = new Vector3(transform.position.x, lowerHit.point.y + m_StepHeight, transform.position.z);
+
+        //        // Smoothly move the character up
+        //        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.fixedDeltaTime * m_StepHeightSmooth);
+        //    }
+        //}
+
+        if (!m_Isgrounded || MoveInput.magnitude < 0.1f)
+        {
+            return; 
+        }
+
+        float capsuleBaseY = transform.position.y + m_CapsuleCollider.center.y - m_CapsuleCollider.height / 2f;
+        Vector3 capsuleBase = new Vector3(transform.position.x, capsuleBaseY, transform.position.z);
+
+        // Raycast origins for the two horizontal checks
+        Vector3 lowerRayOrigin = capsuleBase + transform.forward * m_StepDistance * 0.1f + Vector3.up * 0.05f;
+        Vector3 upperRayOrigin = capsuleBase + transform.forward * m_StepDistance * 0.1f + Vector3.up * (m_StepHeight + 0.05f);
+
+        RaycastHit lowerHit;
+
+        // Check for a wall at foot level 
+        if (Physics.Raycast(lowerRayOrigin, transform.forward, out lowerHit, m_StepDistance, m_WalkableLayer))
+        {
+            // Check if the space above the wall is clear
+            if (!Physics.Raycast(upperRayOrigin, transform.forward, m_StepDistance, m_WalkableLayer))
+            {
+                // Correct calculation: get the y-coordinate from the hit collider's bounds
+                float stepTopY = lowerHit.collider.bounds.max.y;
+                Vector3 targetPosition = new Vector3(transform.position.x, stepTopY + 0.05f, transform.position.z);
+
+                // Smoothly move the player up
+                transform.position = Vector3.Lerp(transform.position, targetPosition, Time.fixedDeltaTime * 1f);
+            }
+        }
+
 
     }
 
