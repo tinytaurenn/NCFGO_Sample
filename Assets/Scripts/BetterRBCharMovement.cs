@@ -108,18 +108,19 @@ public class BetterRBCharMovement : MonoBehaviour
         Vector3 upperRayOrigin = capsuleBase + forwardDir * m_StepDistance * 0.1f + Vector3.up * (m_StepHeight + 0.05f);
 
         RaycastHit lowerHit;
+        float newStepDistance = IsSprinting ? m_StepDistance * 1.5f : m_StepDistance;
 
-        if (Physics.Raycast(lowerRayOrigin, forwardDir, out lowerHit, m_StepDistance, m_WalkableLayer))
+        if (Physics.Raycast(lowerRayOrigin, forwardDir, out lowerHit, newStepDistance, m_WalkableLayer))
         {
             float stepTopY = lowerHit.collider.bounds.max.y;
             float distanceToStepTop = stepTopY - capsuleBaseY;
             if (Vector3.Dot(lowerHit.normal, Vector3.up) < 0.1f)
             {
-                if (!Physics.Raycast(upperRayOrigin, forwardDir, m_StepDistance, m_WalkableLayer))
+                if (!Physics.Raycast(upperRayOrigin, forwardDir, newStepDistance, m_WalkableLayer))
                 {
                     Vector3 force = Vector3.up * m_StepHeight;  
                     //
-                    float highestHitY = GetHighestHitY(lowerRayOrigin, forwardDir, m_StepDistance, m_StepHeight, m_WalkableLayer);
+                    float highestHitY = GetHighestHitY(lowerRayOrigin, forwardDir, newStepDistance, m_StepHeight, m_WalkableLayer);
                     ;
                     if (highestHitY != -1)
                     {
