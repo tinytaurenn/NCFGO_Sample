@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerMovement : BetterRBCharMovement
 {
     
+    
     public Vector2 MouseDelta { get; set; }
     public float m_MouseSensivity = 1f; // mouse sensitivity
 
@@ -74,6 +75,12 @@ public class PlayerMovement : BetterRBCharMovement
 
     }
 
+    public void GetInVehicule(Collider vehiculeCollider)
+    {
+        m_RigidBody.isKinematic = true;
+        Physics.IgnoreCollision(m_CapsuleCollider, vehiculeCollider, true);
+
+    }
     private void LateUpdate()
     {
     }
@@ -85,5 +92,7 @@ public class PlayerMovement : BetterRBCharMovement
        
         
     }
+
+   
 
 }

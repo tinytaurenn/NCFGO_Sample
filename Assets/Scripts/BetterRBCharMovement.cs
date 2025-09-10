@@ -25,7 +25,7 @@ public class BetterRBCharMovement : MonoBehaviour
     [SerializeField] float m_StepDistance = 0.5f;
     [SerializeField] float distanceStepMultiplier = 1f;
     [SerializeField] LayerMask m_WalkableLayer;
-    [SerializeField] CapsuleCollider m_CapsuleCollider;
+    [SerializeField]protected CapsuleCollider m_CapsuleCollider;
 
     protected virtual void Awake()
     {
