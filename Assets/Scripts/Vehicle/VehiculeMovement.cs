@@ -38,13 +38,13 @@ public class VehiculeMovement : MonoBehaviour
         //if()
         Vector3 moveDir = MoveInput;
         Checkgrounded();
-        CapsuleCollider collider =  m_Collider.GetComponent<CapsuleCollider>();
+        BoxCollider collider =  m_Collider.GetComponent<BoxCollider>();
 
         if (m_IsGrounded)
         {
             RaycastHit hit;
             // Cast a ray down from the character to get the ground's normal
-            if (Physics.Raycast(transform.position, Vector3.down, out hit, collider.height / 2f + 0.1f, m_WalkableLayer))
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, collider.size.y / 2f + 0.1f, m_WalkableLayer))
             {
                 // Project the movement direction onto the plane of the ground
                 moveDir = Vector3.ProjectOnPlane(moveDir, hit.normal).normalized;
@@ -73,11 +73,20 @@ public class VehiculeMovement : MonoBehaviour
 
     void Checkgrounded()
     {
-        CapsuleCollider collider = m_Collider.GetComponent<CapsuleCollider>();
+        //CapsuleCollider collider = m_Collider.GetComponent<CapsuleCollider>();
 
-        float capsuleBaseY = transform.position.y + collider.center.y - collider.height / 2f;
-        Vector3 capsuleBase = new Vector3(transform.position.x, capsuleBaseY + 0.05f, transform.position.z);
-        m_IsGrounded = Physics.Raycast(capsuleBase, Vector3.down, 0.1f, m_WalkableLayer);
+        //float capsuleBaseY = transform.position.y + collider.center.y - collider.height / 2f;
+        //Vector3 capsuleBase = new Vector3(transform.position.x, capsuleBaseY + 0.05f, transform.position.z);
+        //m_IsGrounded = Physics.Raycast(capsuleBase, Vector3.down, 0.1f, m_WalkableLayer);
+
+        BoxCollider boxCollider = m_Collider.GetComponent<BoxCollider>();
+
+        // Calculate the base of the box collider in world space
+        float boxBaseY = transform.position.y + boxCollider.center.y - boxCollider.size.y / 2f;
+        Vector3 boxBase = new Vector3(transform.position.x, boxBaseY, transform.position.z);
+
+        // Perform the raycast from a slightly elevated position to avoid being inside the ground
+        m_IsGrounded = Physics.Raycast(boxBase + Vector3.up * 0.05f, Vector3.down, 0.1f, m_WalkableLayer);
     }
 
     void UpdateAnimator()
