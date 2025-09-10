@@ -2695,13 +2695,52 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3066716103743414141, guid: 1043fe2391846ea47bceaacdd1e7a473, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6224282849478559348}
   m_SourcePrefab: {fileID: 100100000, guid: 1043fe2391846ea47bceaacdd1e7a473, type: 3}
+--- !u!1 &6224282849478559342 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3066716103743414141, guid: 1043fe2391846ea47bceaacdd1e7a473, type: 3}
+  m_PrefabInstance: {fileID: 6224282849478559341}
+  m_PrefabAsset: {fileID: 0}
 --- !u!136 &6224282849478559346 stripped
 CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 1250077174234379991, guid: 1043fe2391846ea47bceaacdd1e7a473, type: 3}
   m_PrefabInstance: {fileID: 6224282849478559341}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6224282849478559348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6224282849478559342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 817fe5016bd0a2a49a95b6eb338bb132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  _syncPosition: 1
+  _syncRotation: 1
+  _syncScale: 1
+  _syncParent: 1
+  _interpolateSettings: 7
+  _minBufferSize: 1
+  _maxBufferSize: 2
+  _characterControllerPatch: 0
+  _ownerAuth: 1
+  _interpolationTiming: 0
 --- !u!1001 &7281174859174805595
 PrefabInstance:
   m_ObjectHideFlags: 0

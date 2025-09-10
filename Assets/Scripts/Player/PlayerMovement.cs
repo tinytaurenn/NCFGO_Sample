@@ -75,12 +75,7 @@ public class PlayerMovement : BetterRBCharMovement
 
     }
 
-    public void GetInVehicule(Collider vehiculeCollider)
-    {
-        m_RigidBody.isKinematic = true;
-        Physics.IgnoreCollision(m_CapsuleCollider, vehiculeCollider, true);
-
-    }
+  
     private void LateUpdate()
     {
     }

@@ -8,7 +8,7 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] PlayerCamera m_PlayerCamera; 
 
     Vector2 m_MoveValue;
-    [SerializeField] VehiculeMovement m_VehiculeMovement;
+    [SerializeField] public Vehicule m_CurrentVehicule; 
 
 
     public enum ELocomotionState
@@ -68,16 +68,16 @@ public class PlayerControls : MonoBehaviour
     }
     void SetVehicleValue(Vector2 moveInput)
     {
-        if (m_VehiculeMovement == null) return; 
+        if (m_CurrentVehicule == null) return; 
         m_MoveValue = moveInput;
 
         //Debug.Log("Movement Input: " + moveInput);
         Vector3 forward = m_PlayerCamera.transform.parent.forward;
         Vector3 right = m_PlayerCamera.transform.parent.right;
-        m_VehiculeMovement.MoveInput = right * (m_MoveValue.x * m_PlayerMovement.StrafeSpeedModifier) + forward * m_MoveValue.y;
-        m_VehiculeMovement.MoveInputRaw = moveInput;
+        m_CurrentVehicule.m_VehicleMovement.MoveInput = right * (m_MoveValue.x * m_PlayerMovement.StrafeSpeedModifier) + forward * m_MoveValue.y;
+        m_CurrentVehicule.m_VehicleMovement.MoveInputRaw = moveInput;
 
-        m_VehiculeMovement.MoveInput = right * m_MoveValue.x + forward * m_MoveValue.y;
+        m_CurrentVehicule.m_VehicleMovement.MoveInput = right * m_MoveValue.x + forward * m_MoveValue.y;
     }
 
     void SetIsSprinting(bool isSprinting)
@@ -95,9 +95,8 @@ public class PlayerControls : MonoBehaviour
     }
     public void SwitchToBicycle(Vehicule vehicule)
     {
+        m_CurrentVehicule = vehicule;
         SwitchLocomotionState(ELocomotionState.Bicycle);
-        m_VehiculeMovement = vehicule.GetComponent<VehiculeMovement>();
-        m_PlayerMovement.GetInVehicule(vehicule.GetComponent<Collider>());
     }
     void LocomotionStateUpdate()
     {
@@ -123,9 +122,10 @@ public class PlayerControls : MonoBehaviour
         switch (m_LocomotionState)
         {
             case ELocomotionState.Foot:
-                m_VehiculeMovement = null;
+                m_CurrentVehicule = null;
                 break;
             case ELocomotionState.Bicycle:
+                Physics.IgnoreCollision(m_CurrentVehicule.GetComponent<Collider>(), GetComponent<Collider>(), true);
                 
                 break;
             default:

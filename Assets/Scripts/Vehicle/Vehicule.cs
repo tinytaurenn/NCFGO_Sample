@@ -5,6 +5,12 @@ using UnityEngine.InputSystem;
 public class Vehicule : NetworkBehaviour
 {
     public SyncVar<bool> HasDriver = new SyncVar<bool>(ownerAuth: true);
+    public VehiculeMovement m_VehicleMovement;
+
+    private void Awake()
+    {
+        m_VehicleMovement = GetComponent<VehiculeMovement>();
+    }
     void Start()
     {
         

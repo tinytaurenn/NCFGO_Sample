@@ -4,10 +4,15 @@ using UnityEngine;
 public class PlayerEntity : PlayerIdentity<PlayerEntity>
 {
     PlayerControls m_PlayerControls;
+    Rigidbody m_Rigibody;
+    CapsuleCollider m_collider; 
 
     private void Awake()
     {
         m_PlayerControls = GetComponent<PlayerControls>();
+
+        m_Rigibody = GetComponent<Rigidbody>();
+        m_collider = GetComponent<CapsuleCollider>();
 
     }
     void Start()
@@ -34,9 +39,11 @@ public class PlayerEntity : PlayerIdentity<PlayerEntity>
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
 
-        Physics.IgnoreCollision(GetComponent<Collider>(), vehicle.GetComponent<Collider>(), true);
+        m_Rigibody.isKinematic = true;
         //m_PlayerControls.SwitchLocomotionState(PlayerControls.ELocomotionState.Bicycle);
         m_PlayerControls.SwitchToBicycle(vehicle);
 
     }
+
+
 }
