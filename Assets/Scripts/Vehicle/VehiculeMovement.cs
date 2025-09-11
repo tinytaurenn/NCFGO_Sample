@@ -1,4 +1,6 @@
+using JamesFrowen.SimpleWeb;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class VehiculeMovement : MonoBehaviour
 {
@@ -14,7 +16,46 @@ public class VehiculeMovement : MonoBehaviour
     [SerializeField] Collider m_Collider;
     protected Rigidbody m_RigidBody;
     [SerializeField] bool m_IsGrounded = true;
-    [SerializeField] Transform m_ForwardPivot; 
+    [SerializeField] Transform m_ForwardPivot;
+
+    [SerializeField] WheelCollider frontWheel;
+    [SerializeField] WheelCollider backWheel;
+
+    [SerializeField] Transform frontWheelTransform;
+    [SerializeField] Transform backWheelTransform;
+
+    [SerializeField] bool braking = false; 
+    [SerializeField] float brakeForce = 20; 
+
+    [Space(20)]
+    [Header("Steering")]
+    [Space(5)]
+    [Tooltip("Defines the maximum steering angle for the bicycle")]
+    [SerializeField] float maxSteeringAngle;
+    [Tooltip("Sets how current_MaxSteering is reduced based on the speed of the RB, (0 - No effect) (1 - Full)")]
+    [Range(0f, 1f)][SerializeField] float steerReductorAmmount;
+    [Tooltip("Sets the Steering sensitivity [Steering Stiffness] 0 - No turn, 1 - FastTurn)")]
+    [Range(0.001f, 1f)][SerializeField] float turnSmoothing;
+
+    [Space(20)]
+    [Header("Lean")]
+    [Space(5)]
+    [Tooltip("Defines the maximum leaning angle for this bicycle")]
+    [SerializeField] float maxLeanAngle = 45f;
+    [Tooltip("Sets the Leaning sensitivity (0 - None, 1 - full")]
+    [Range(0.001f, 1f)][SerializeField] float leanSmoothing;
+    float targetLeanAngle;
+
+    [Space(20)]
+    [HeaderAttribute("Info")]
+    [SerializeField] float currentSteeringAngle;
+    [Tooltip("Dynamic steering angle baed on the speed of the RB, affected by sterReductorAmmount")]
+    [SerializeField] float current_maxSteeringAngle;
+    [Tooltip("The current lean angle applied")]
+    [Range(-45, 45)] public float currentLeanAngle;
+    [Space(20)]
+    [HeaderAttribute("Speed")]
+    [SerializeField] float currentSpeed;
 
     private void Awake()
     {
@@ -24,13 +65,14 @@ public class VehiculeMovement : MonoBehaviour
     }
     void Start()
     {
-        
+        frontWheel.ConfigureVehicleSubsteps(5, 12, 15);
+        backWheel.ConfigureVehicleSubsteps(5, 12, 15);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        braking = Keyboard.current.spaceKey.isPressed;
     }
     protected virtual void FixedUpdate()
     {
@@ -38,50 +80,93 @@ public class VehiculeMovement : MonoBehaviour
     }
     protected virtual void MovementUpdate()
     {
-        //if()
-        Vector3 moveDir = MoveInput;
         Checkgrounded();
-        BoxCollider collider =  m_Collider.GetComponent<BoxCollider>();
-
-        bool isForward = MoveInputRaw.y > 0;
-
-        if(moveDir.magnitude > 0.1f)
-        {
-            if (!isForward) moveDir = -moveDir; 
-            Quaternion targetRotation = Quaternion.LookRotation(moveDir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * m_RotationSpeed);
-        }
-
-        moveDir = isForward ? transform.forward * MoveInput.magnitude : transform.forward * -MoveInput.magnitude; 
-
-        if (m_IsGrounded)
-        {
-            RaycastHit hit;
-            // Cast a ray down from the character to get the ground's normal
-            if (Physics.Raycast(m_ForwardPivot.position, Vector3.down, out hit, collider.size.y / 2f + 0.1f, m_WalkableLayer))
-            {
-                // Project the movement direction onto the plane of the ground
-                moveDir = Vector3.ProjectOnPlane(moveDir, hit.normal).normalized;
-            }
-        }
 
 
+        Engine(); 
 
-        Vector3 velocity = m_RigidBody.linearVelocity;
-        Vector3 targetVelocity = isForward ? moveDir * m_MoveSpeed : moveDir * m_MoveSpeed * m_BackWardspeedModifier;
-        //targetVelocity = transform.TransformDirection(targetVelocity);
+        Turning();
+        LeanOnTurn();
+        //UpdateWheels(); //wheels transform cant be the one with weels colliders
 
-
-
-
-        Vector3 velocityChange = targetVelocity - velocity;
-        velocityChange = new Vector3(velocityChange.x, 0, velocityChange.z);
-
-        // This line was the problem; ClampMagnitude returns a value, it doesn't modify the original variable.
-        velocityChange = Vector3.ClampMagnitude(velocityChange, m_MaxSpeed);
-
-        m_RigidBody.AddForce(velocityChange, ForceMode.VelocityChange);
         UpdateAnimator();
+    }
+
+    void Engine()
+    {
+        // Use a variable to store the motor torque, which is based on MoveInputRaw
+        float motorTorque = braking ? 0f : MoveInputRaw.y * m_MoveSpeed; 
+
+        // Apply motor torque to the back wheel
+        // This is the ONLY place where movement force should be applied
+        backWheel.motorTorque = motorTorque;
+
+        float force = braking ? brakeForce : 0f;
+        Braking(force); 
+    }
+
+    void Braking(float force)
+    {
+        frontWheel.brakeTorque = force;
+        backWheel.brakeTorque = force;
+    }
+    void MaxTurning()
+    {
+        //30 is the value of MaxSpeed at wich currentMaxSteering will be at its minimum,			
+        float turn = (m_RigidBody.linearVelocity.magnitude / 30) * steerReductorAmmount;
+        turn = turn > 1 ? 1 : turn;
+        current_maxSteeringAngle = Mathf.LerpAngle(maxSteeringAngle, 5, turn); //5 is the lowest posisble degrees of Steering	
+    }
+
+    public void Turning()
+    {
+        MaxTurning();
+
+        currentSteeringAngle = Mathf.Lerp(currentSteeringAngle, current_maxSteeringAngle * MoveInputRaw.x, turnSmoothing * 0.1f);
+        frontWheel.steerAngle = currentSteeringAngle;
+
+        //We set the target lean angle to the + or - input value of our steering 
+        //We invert our input for rotating in the ocrrect axis
+        targetLeanAngle = maxLeanAngle * - MoveInputRaw.y;
+    }
+
+    private void LeanOnTurn()
+    {
+        Vector3 currentRot = transform.rotation.eulerAngles;
+        //Case: not moving much		
+        if (m_RigidBody.linearVelocity.magnitude < 1)
+        {
+            currentLeanAngle = Mathf.LerpAngle(currentLeanAngle, 0f, 0.1f);
+            transform.rotation = Quaternion.Euler(currentRot.x, currentRot.y, currentLeanAngle);
+            //return;
+        }
+        //Case: Not steering or steering a tiny amount
+        if (currentSteeringAngle < 0.5f && currentSteeringAngle > -0.5)
+        {
+            currentLeanAngle = Mathf.LerpAngle(currentLeanAngle, 0f, leanSmoothing * 0.1f);
+        }
+        //Case: Steering
+        else
+        {
+            currentLeanAngle = Mathf.LerpAngle(currentLeanAngle, targetLeanAngle, leanSmoothing * 0.1f);
+            m_RigidBody.centerOfMass = new Vector3(m_RigidBody.centerOfMass.x, 0, m_RigidBody.centerOfMass.z);
+        }
+        transform.rotation = Quaternion.Euler(currentRot.x, currentRot.y, currentLeanAngle);
+    }
+
+    public void UpdateWheels()
+    {
+        UpdateSingleWheel(frontWheel, frontWheelTransform);
+        UpdateSingleWheel(backWheel, backWheelTransform);
+    }
+
+    private void UpdateSingleWheel(WheelCollider wheelCollider, Transform wheelTransform)
+    {
+        Vector3 position;
+        Quaternion rotation;
+        wheelCollider.GetWorldPose(out position, out rotation);// this !! 
+        wheelTransform.rotation = rotation;
+        wheelTransform.position = position;
     }
 
     void Checkgrounded()
