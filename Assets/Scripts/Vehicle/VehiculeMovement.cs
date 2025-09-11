@@ -8,6 +8,8 @@ public class VehiculeMovement : MonoBehaviour
 
     [SerializeField] float m_MoveSpeed = 5f;
     [SerializeField] float m_MaxSpeed = 10f;
+    [SerializeField] float m_BackWardspeedModifier = 0.5f;  
+    [SerializeField] float m_RotationSpeed = 10f; 
     [SerializeField] LayerMask m_WalkableLayer;
     [SerializeField] Collider m_Collider;
     protected Rigidbody m_RigidBody;
@@ -40,6 +42,17 @@ public class VehiculeMovement : MonoBehaviour
         Checkgrounded();
         BoxCollider collider =  m_Collider.GetComponent<BoxCollider>();
 
+        bool isForward = MoveInputRaw.y > 0;
+
+        if(moveDir.magnitude > 0.1f)
+        {
+            if (!isForward) moveDir = -moveDir; 
+            Quaternion targetRotation = Quaternion.LookRotation(moveDir);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * m_RotationSpeed);
+        }
+
+        moveDir = isForward ? transform.forward * MoveInput.magnitude : transform.forward * -MoveInput.magnitude; 
+
         if (m_IsGrounded)
         {
             RaycastHit hit;
@@ -51,11 +64,10 @@ public class VehiculeMovement : MonoBehaviour
             }
         }
 
-        // Handle stairs BEFORE the movement calculation
-        //HandleStairs();
+
 
         Vector3 velocity = m_RigidBody.linearVelocity;
-        Vector3 targetVelocity = moveDir * m_MoveSpeed;
+        Vector3 targetVelocity = isForward ? moveDir * m_MoveSpeed : moveDir * m_MoveSpeed * m_BackWardspeedModifier;
         //targetVelocity = transform.TransformDirection(targetVelocity);
 
 

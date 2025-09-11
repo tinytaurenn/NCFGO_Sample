@@ -2692,6 +2692,10 @@ PrefabInstance:
       propertyPath: m_Collider
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7508427442477326625, guid: 1043fe2391846ea47bceaacdd1e7a473, type: 3}
+      propertyPath: m_RotationSpeed
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1250077174234379991, guid: 1043fe2391846ea47bceaacdd1e7a473, type: 3}
     m_RemovedGameObjects: []

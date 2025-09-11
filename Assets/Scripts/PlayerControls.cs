@@ -74,7 +74,7 @@ public class PlayerControls : MonoBehaviour
         //Debug.Log("Movement Input: " + moveInput);
         Vector3 forward = m_PlayerCamera.transform.parent.forward;
         Vector3 right = m_PlayerCamera.transform.parent.right;
-        m_CurrentVehicule.m_VehicleMovement.MoveInput = right * (m_MoveValue.x * m_PlayerMovement.StrafeSpeedModifier) + forward * m_MoveValue.y;
+        m_CurrentVehicule.m_VehicleMovement.MoveInput =  forward * m_MoveValue.y;
         m_CurrentVehicule.m_VehicleMovement.MoveInputRaw = moveInput;
 
         m_CurrentVehicule.m_VehicleMovement.MoveInput = right * m_MoveValue.x + forward * m_MoveValue.y;
