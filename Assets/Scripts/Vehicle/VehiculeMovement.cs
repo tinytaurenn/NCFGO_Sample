@@ -14,6 +14,7 @@ public class VehiculeMovement : MonoBehaviour
     [SerializeField] Collider m_Collider;
     protected Rigidbody m_RigidBody;
     [SerializeField] bool m_IsGrounded = true;
+    [SerializeField] Transform m_ForwardPivot; 
 
     private void Awake()
     {
@@ -57,7 +58,7 @@ public class VehiculeMovement : MonoBehaviour
         {
             RaycastHit hit;
             // Cast a ray down from the character to get the ground's normal
-            if (Physics.Raycast(transform.position, Vector3.down, out hit, collider.size.y / 2f + 0.1f, m_WalkableLayer))
+            if (Physics.Raycast(m_ForwardPivot.position, Vector3.down, out hit, collider.size.y / 2f + 0.1f, m_WalkableLayer))
             {
                 // Project the movement direction onto the plane of the ground
                 moveDir = Vector3.ProjectOnPlane(moveDir, hit.normal).normalized;
@@ -104,5 +105,20 @@ public class VehiculeMovement : MonoBehaviour
     void UpdateAnimator()
     {
         
+    }
+    private void OnDrawGizmos()
+    {
+        Vector3 moveDir = MoveInput;
+        bool isForward = MoveInputRaw.y > 0;
+        BoxCollider collider = m_Collider.GetComponent<BoxCollider>();
+        moveDir = isForward ? transform.forward * MoveInput.magnitude : transform.forward * -MoveInput.magnitude;
+        RaycastHit hit;
+        if (Physics.Raycast(m_ForwardPivot.position, Vector3.down, out hit, collider.size.y / 2f + 0.1f, m_WalkableLayer))
+        {
+            // Project the movement direction onto the plane of the ground
+            moveDir = Vector3.ProjectOnPlane(moveDir, hit.normal).normalized;
+            Gizmos.color = Color.green;
+            Gizmos.DrawRay(m_ForwardPivot.position, moveDir* 2);
+        }
     }
 }
