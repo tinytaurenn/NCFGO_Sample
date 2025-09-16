@@ -1,6 +1,7 @@
 using JamesFrowen.SimpleWeb;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 
 public class VehiculeMovement : MonoBehaviour
 {
@@ -13,9 +14,8 @@ public class VehiculeMovement : MonoBehaviour
     [SerializeField] float m_BackWardspeedModifier = 0.5f;  
     [SerializeField] float m_RotationSpeed = 10f; 
     [SerializeField] LayerMask m_WalkableLayer;
-    [SerializeField] Collider m_Collider;
     protected Rigidbody m_RigidBody;
-    [SerializeField] bool m_IsGrounded = true;
+    //[SerializeField] bool m_IsGrounded = true;
     [SerializeField] Transform m_ForwardPivot;
 
     [SerializeField] WheelCollider frontWheel;
@@ -23,6 +23,7 @@ public class VehiculeMovement : MonoBehaviour
 
     [SerializeField] Transform frontWheelTransform;
     [SerializeField] Transform backWheelTransform;
+    [SerializeField] Transform m_Handle; 
 
     [SerializeField] bool braking = false; 
     [SerializeField] float brakeForce = 20; 
@@ -60,7 +61,6 @@ public class VehiculeMovement : MonoBehaviour
     private void Awake()
     {
         m_RigidBody = GetComponent<Rigidbody>();
-        m_Collider = GetComponent<Collider>();
 
     }
     void Start()
@@ -80,14 +80,15 @@ public class VehiculeMovement : MonoBehaviour
     }
     protected virtual void MovementUpdate()
     {
-        Checkgrounded();
+        //Checkgrounded();
 
 
         Engine(); 
 
         Turning();
         LeanOnTurn();
-        //UpdateWheels(); //wheels transform cant be the one with weels colliders
+        UpdateHandle(); 
+        UpdateWheels(); //wheels transform cant be the one with weels colliders
 
         UpdateAnimator();
     }
@@ -127,7 +128,7 @@ public class VehiculeMovement : MonoBehaviour
 
         //We set the target lean angle to the + or - input value of our steering 
         //We invert our input for rotating in the ocrrect axis
-        targetLeanAngle = maxLeanAngle * - MoveInputRaw.y;
+        targetLeanAngle = maxLeanAngle * - MoveInputRaw.x;
     }
 
     private void LeanOnTurn()
@@ -136,6 +137,7 @@ public class VehiculeMovement : MonoBehaviour
         //Case: not moving much		
         if (m_RigidBody.linearVelocity.magnitude < 1)
         {
+            //Debug.Log("not moving much");
             currentLeanAngle = Mathf.LerpAngle(currentLeanAngle, 0f, 0.1f);
             transform.rotation = Quaternion.Euler(currentRot.x, currentRot.y, currentLeanAngle);
             //return;
@@ -143,17 +145,23 @@ public class VehiculeMovement : MonoBehaviour
         //Case: Not steering or steering a tiny amount
         if (currentSteeringAngle < 0.5f && currentSteeringAngle > -0.5)
         {
+            //Debug.Log("Not steering or steering a tiny amount");
             currentLeanAngle = Mathf.LerpAngle(currentLeanAngle, 0f, leanSmoothing * 0.1f);
         }
         //Case: Steering
         else
         {
+            Debug.Log("Steering");
             currentLeanAngle = Mathf.LerpAngle(currentLeanAngle, targetLeanAngle, leanSmoothing * 0.1f);
-            m_RigidBody.centerOfMass = new Vector3(m_RigidBody.centerOfMass.x, 0, m_RigidBody.centerOfMass.z);
+            m_RigidBody.centerOfMass = new Vector3(m_RigidBody.centerOfMass.x, -0.1f, m_RigidBody.centerOfMass.z);
         }
         transform.rotation = Quaternion.Euler(currentRot.x, currentRot.y, currentLeanAngle);
     }
-
+    void UpdateHandle()
+    {
+       
+        m_Handle.localEulerAngles = new Vector3(m_Handle.localEulerAngles.x, currentSteeringAngle, m_Handle.localEulerAngles.z);
+    }
     public void UpdateWheels()
     {
         UpdateSingleWheel(frontWheel, frontWheelTransform);
@@ -165,26 +173,21 @@ public class VehiculeMovement : MonoBehaviour
         Vector3 position;
         Quaternion rotation;
         wheelCollider.GetWorldPose(out position, out rotation);// this !! 
-        wheelTransform.rotation = rotation;
+        Vector3 newRot = rotation.eulerAngles;
+        newRot.z += 90;
+
+
+        wheelTransform.rotation = Quaternion.Euler(newRot); 
+
+
+
+
         wheelTransform.position = position;
     }
 
     void Checkgrounded()
     {
-        //CapsuleCollider collider = m_Collider.GetComponent<CapsuleCollider>();
-
-        //float capsuleBaseY = transform.position.y + collider.center.y - collider.height / 2f;
-        //Vector3 capsuleBase = new Vector3(transform.position.x, capsuleBaseY + 0.05f, transform.position.z);
-        //m_IsGrounded = Physics.Raycast(capsuleBase, Vector3.down, 0.1f, m_WalkableLayer);
-
-        BoxCollider boxCollider = m_Collider.GetComponent<BoxCollider>();
-
-        // Calculate the base of the box collider in world space
-        float boxBaseY = transform.position.y + boxCollider.center.y - boxCollider.size.y / 2f;
-        Vector3 boxBase = new Vector3(transform.position.x, boxBaseY, transform.position.z);
-
-        // Perform the raycast from a slightly elevated position to avoid being inside the ground
-        m_IsGrounded = Physics.Raycast(boxBase + Vector3.up * 0.05f, Vector3.down, 0.1f, m_WalkableLayer);
+        
     }
 
     void UpdateAnimator()
@@ -193,17 +196,6 @@ public class VehiculeMovement : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        Vector3 moveDir = MoveInput;
-        bool isForward = MoveInputRaw.y > 0;
-        BoxCollider collider = m_Collider.GetComponent<BoxCollider>();
-        moveDir = isForward ? transform.forward * MoveInput.magnitude : transform.forward * -MoveInput.magnitude;
-        RaycastHit hit;
-        if (Physics.Raycast(m_ForwardPivot.position, Vector3.down, out hit, collider.size.y / 2f + 0.1f, m_WalkableLayer))
-        {
-            // Project the movement direction onto the plane of the ground
-            moveDir = Vector3.ProjectOnPlane(moveDir, hit.normal).normalized;
-            Gizmos.color = Color.green;
-            Gizmos.DrawRay(m_ForwardPivot.position, moveDir* 2);
-        }
+       
     }
 }
