@@ -576,7 +576,7 @@ WheelCollider:
     targetPosition: 0
   m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
-  m_Mass: 1
+  m_Mass: 15
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
     m_ExtremumSlip: 0.1
@@ -647,7 +647,7 @@ WheelCollider:
     targetPosition: 0
   m_SuspensionDistance: 0.05
   m_ForceAppPointDistance: 0
-  m_Mass: 1
+  m_Mass: 15
   m_WheelDampingRate: 1
   m_ForwardFriction:
     m_ExtremumSlip: 0.1

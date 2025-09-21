@@ -125,7 +125,7 @@ public class PlayerControls : MonoBehaviour
                 m_CurrentVehicule = null;
                 break;
             case ELocomotionState.Bicycle:
-                Physics.IgnoreCollision(m_CurrentVehicule.GetComponent<Collider>(), GetComponent<Collider>(), true);
+                //Physics.IgnoreCollision(m_CurrentVehicule.GetComponent<Collider>(), GetComponent<Collider>(), true);
                 
                 break;
             default:
