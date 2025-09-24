@@ -1,5 +1,7 @@
 using Steamworks;
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerControls : MonoBehaviour
 {
@@ -8,7 +10,12 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] PlayerCamera m_PlayerCamera; 
 
     Vector2 m_MoveValue;
-    [SerializeField] public Vehicule m_CurrentVehicule; 
+    [SerializeField] public Vehicule m_CurrentVehicule;
+
+    [SerializeField] float m_UsableDistance = 3f; 
+     IUsable m_UsableFocus;
+    //to serialize
+    [SerializeField] GameObject m_UsableFocusDebug; 
 
 
     public enum ELocomotionState
@@ -29,6 +36,7 @@ public class PlayerControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckUsable(); 
         LocomotionStateUpdate(); 
 
         //
@@ -37,13 +45,27 @@ public class PlayerControls : MonoBehaviour
     private void OnEnable()
     {
         m_InputActions.Player.Enable();
+        m_InputActions.Player.Interact.performed += OnInteract; 
 
 
     }
+
+
     private void OnDisable()
     {
+        m_InputActions.Player.Interact.performed -= OnInteract;
         m_InputActions.Player.Disable();
-        
+
+    }
+    private void OnInteract(InputAction.CallbackContext context)
+    {
+        Debug.Log("try using something"); 
+        if(m_CurrentVehicule != null)
+        {
+            Debug.Log("can't use while in vehicle");
+            return; 
+        }
+        m_UsableFocus?.TryUse(); 
     }
 
     void SetMovementValue(Vector2 moveInput)
@@ -143,5 +165,27 @@ public class PlayerControls : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    void CheckUsable()
+    {
+        Ray ray = new Ray(m_PlayerCamera.transform.position, m_PlayerCamera.transform.forward);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, m_UsableDistance))
+        {
+            //Debug.Log("hitting something : " + hitInfo.collider.name);
+
+            if (hitInfo.collider.TryGetComponent<IUsable>(out IUsable usable))
+            {
+                m_UsableFocus = usable;
+                m_UsableFocusDebug = hitInfo.collider.gameObject; 
+                //Debug.Log("hitting usable : " + hitInfo.collider.name);
+                UI_Manager.Instance.SetUseText("Press Numpad 3 to use " + hitInfo.collider.transform.root.name);
+                UI_Manager.Instance.ShowText(true);
+                return;
+            }
+        }
+        m_UsableFocus = null;   
+        m_UsableFocusDebug = null;
+        UI_Manager.Instance.ShowText(false);
     }
 }

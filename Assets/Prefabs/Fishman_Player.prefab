@@ -1640,8 +1640,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlayerMovement: {fileID: 6356818469277179427}
   m_PlayerCamera: {fileID: 5958349205422747976}
-  m_Pivot: {fileID: 8523257728605374193}
-  cubeToSpawn: {fileID: 8964007400464325882, guid: c8237eaf1769fae47afd240d0f0bd5ed, type: 3}
+  m_CurrentVehicule: {fileID: 0}
+  m_LocomotionState: 0
 --- !u!136 &6550382382643422955
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2275,3 +2275,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MouseSensivity: 8
   rotationClamp: 20
+  m_UsableDistance: 3

@@ -2,7 +2,7 @@ using PurrNet;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Vehicule : NetworkBehaviour
+public class Vehicule : NetworkBehaviour, IUsable
 {
     public SyncVar<bool> HasDriver = new SyncVar<bool>(ownerAuth: true);
     public VehiculeMovement m_VehicleMovement;
@@ -19,26 +19,21 @@ public class Vehicule : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.numpad3Key.isPressed)
-        {
-            DoSomething(); 
-        }
+
     }
 
-    void DoSomething()
+    public void TryUse()
     {
         if (HasDriver.value)
         {
             Debug.Log("already used as driver");
-            return; 
+            return;
         }
 
-        if(PlayerEntity.TryGetLocal(out PlayerEntity localPlayer))
+        if (PlayerEntity.TryGetLocal(out PlayerEntity localPlayer))
         {
-            
-            localPlayer.EnterVehicle(this); 
-        }
-        
 
+            localPlayer.EnterVehicle(this);
+        }
     }
 }

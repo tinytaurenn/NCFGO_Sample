@@ -151,7 +151,7 @@ public class VehiculeMovement : MonoBehaviour
         //Case: Steering
         else
         {
-            Debug.Log("Steering");
+            //Debug.Log("Steering");
             currentLeanAngle = Mathf.LerpAngle(currentLeanAngle, targetLeanAngle, leanSmoothing * 0.1f);
             m_RigidBody.centerOfMass = new Vector3(m_RigidBody.centerOfMass.x, -0.1f, m_RigidBody.centerOfMass.z);
         }

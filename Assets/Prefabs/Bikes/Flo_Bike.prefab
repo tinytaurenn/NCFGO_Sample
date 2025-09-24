@@ -683,6 +683,7 @@ GameObject:
   - component: {fileID: 26319868850932538}
   - component: {fileID: 7973965580525016109}
   - component: {fileID: 8429968839847735984}
+  - component: {fileID: 5585140749053404385}
   m_Layer: 0
   m_Name: Flo_Bike
   m_TagString: Untagged
@@ -828,6 +829,27 @@ MonoBehaviour:
   _characterControllerPatch: 0
   _ownerAuth: 1
   _interpolationTiming: 0
+--- !u!65 &5585140749053404385
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2916076287454568583}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.32280064, y: 1.4757386, z: 3.0256574}
+  m_Center: {x: 0, y: 0.27945167, z: -0.050492883}
 --- !u!1 &3571063009225739185
 GameObject:
   m_ObjectHideFlags: 0
