@@ -8,21 +8,53 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 232069393981209198, guid: a0c8719798885894ead99652b6066129, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 305d4f308d8a0e441a862ad7fbe31ce6, type: 2}
+    - target: {fileID: 1794790943273428194, guid: a0c8719798885894ead99652b6066129, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 305d4f308d8a0e441a862ad7fbe31ce6, type: 2}
+    - target: {fileID: 2272095927885150569, guid: a0c8719798885894ead99652b6066129, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 305d4f308d8a0e441a862ad7fbe31ce6, type: 2}
+    - target: {fileID: 2655007862008547288, guid: a0c8719798885894ead99652b6066129, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 305d4f308d8a0e441a862ad7fbe31ce6, type: 2}
     - target: {fileID: 2916076287454568583, guid: a0c8719798885894ead99652b6066129, type: 3}
       propertyPath: m_Name
-      value: Flo_Bike
+      value: Matt_Bike
       objectReference: {fileID: 0}
+    - target: {fileID: 7075974673926393693, guid: a0c8719798885894ead99652b6066129, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 305d4f308d8a0e441a862ad7fbe31ce6, type: 2}
+    - target: {fileID: 7278847828327965520, guid: a0c8719798885894ead99652b6066129, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 305d4f308d8a0e441a862ad7fbe31ce6, type: 2}
+    - target: {fileID: 7647571954202073227, guid: a0c8719798885894ead99652b6066129, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 305d4f308d8a0e441a862ad7fbe31ce6, type: 2}
+    - target: {fileID: 7763149946242509280, guid: a0c8719798885894ead99652b6066129, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 305d4f308d8a0e441a862ad7fbe31ce6, type: 2}
     - target: {fileID: 8989113988166448090, guid: a0c8719798885894ead99652b6066129, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 9.674475
       objectReference: {fileID: 0}
     - target: {fileID: 8989113988166448090, guid: a0c8719798885894ead99652b6066129, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.145
       objectReference: {fileID: 0}
     - target: {fileID: 8989113988166448090, guid: a0c8719798885894ead99652b6066129, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 2.8814275
       objectReference: {fileID: 0}
     - target: {fileID: 8989113988166448090, guid: a0c8719798885894ead99652b6066129, type: 3}
       propertyPath: m_LocalRotation.w

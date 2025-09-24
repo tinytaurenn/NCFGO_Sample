@@ -11,15 +11,15 @@ PrefabInstance:
     - target: {fileID: 232069393981209198, guid: a0c8719798885894ead99652b6066129, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: e2be2d6ee7408064aadca2b8b3eb1d43, type: 2}
+      objectReference: {fileID: 2100000, guid: 6dfea4dd604f7fb499f4704c1d17fb5d, type: 2}
     - target: {fileID: 1794790943273428194, guid: a0c8719798885894ead99652b6066129, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: e2be2d6ee7408064aadca2b8b3eb1d43, type: 2}
+      objectReference: {fileID: 2100000, guid: 6dfea4dd604f7fb499f4704c1d17fb5d, type: 2}
     - target: {fileID: 2655007862008547288, guid: a0c8719798885894ead99652b6066129, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: e2be2d6ee7408064aadca2b8b3eb1d43, type: 2}
+      objectReference: {fileID: 2100000, guid: 6dfea4dd604f7fb499f4704c1d17fb5d, type: 2}
     - target: {fileID: 2916076287454568583, guid: a0c8719798885894ead99652b6066129, type: 3}
       propertyPath: m_Name
       value: Mallo_Bike
@@ -27,15 +27,15 @@ PrefabInstance:
     - target: {fileID: 7075974673926393693, guid: a0c8719798885894ead99652b6066129, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: e2be2d6ee7408064aadca2b8b3eb1d43, type: 2}
+      objectReference: {fileID: 2100000, guid: 6dfea4dd604f7fb499f4704c1d17fb5d, type: 2}
     - target: {fileID: 7647571954202073227, guid: a0c8719798885894ead99652b6066129, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: e2be2d6ee7408064aadca2b8b3eb1d43, type: 2}
+      objectReference: {fileID: 2100000, guid: 6dfea4dd604f7fb499f4704c1d17fb5d, type: 2}
     - target: {fileID: 7763149946242509280, guid: a0c8719798885894ead99652b6066129, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: e2be2d6ee7408064aadca2b8b3eb1d43, type: 2}
+      objectReference: {fileID: 2100000, guid: 6dfea4dd604f7fb499f4704c1d17fb5d, type: 2}
     - target: {fileID: 8989113988166448090, guid: a0c8719798885894ead99652b6066129, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.9013443

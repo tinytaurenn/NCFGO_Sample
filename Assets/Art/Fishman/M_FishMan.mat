@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Fishman_1
+  m_Name: M_FishMan
   m_Shader: {fileID: -6465566751694194690, guid: ead50f0543e433f4fb05973933857f8f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
