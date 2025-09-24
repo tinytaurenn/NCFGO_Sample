@@ -830,6 +830,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 719602345}
   m_CullTransparentMesh: 1
+--- !u!1001 &778384021
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3479976628709854604, guid: ac1aa9d7c298c0749909407cbf07263b, type: 3}
+      propertyPath: m_Name
+      value: Rainbow_Bike
+      objectReference: {fileID: 0}
+    - target: {fileID: 3479976628709854604, guid: ac1aa9d7c298c0749909407cbf07263b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7242659198996389585, guid: ac1aa9d7c298c0749909407cbf07263b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10.838897
+      objectReference: {fileID: 0}
+    - target: {fileID: 7242659198996389585, guid: ac1aa9d7c298c0749909407cbf07263b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 7242659198996389585, guid: ac1aa9d7c298c0749909407cbf07263b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.8325531
+      objectReference: {fileID: 0}
+    - target: {fileID: 7242659198996389585, guid: ac1aa9d7c298c0749909407cbf07263b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7242659198996389585, guid: ac1aa9d7c298c0749909407cbf07263b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7242659198996389585, guid: ac1aa9d7c298c0749909407cbf07263b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7242659198996389585, guid: ac1aa9d7c298c0749909407cbf07263b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7242659198996389585, guid: ac1aa9d7c298c0749909407cbf07263b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7242659198996389585, guid: ac1aa9d7c298c0749909407cbf07263b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7242659198996389585, guid: ac1aa9d7c298c0749909407cbf07263b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ac1aa9d7c298c0749909407cbf07263b, type: 3}
 --- !u!1 &829197083
 GameObject:
   m_ObjectHideFlags: 0
@@ -1208,6 +1269,10 @@ PrefabInstance:
     - target: {fileID: 8390641803027334476, guid: 60dee834d0a287843bdb8102dd747c45, type: 3}
       propertyPath: m_Name
       value: Matt_Bike
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390641803027334476, guid: 60dee834d0a287843bdb8102dd747c45, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2961,6 +3026,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mallo_Bike
       objectReference: {fileID: 0}
+    - target: {fileID: 8434608827485658001, guid: d6453eb29ed656a43a6b116981025c70, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3039,6 +3108,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flo_Bike
       objectReference: {fileID: 0}
+    - target: {fileID: 2916076287454568583, guid: a0c8719798885894ead99652b6066129, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8989113988166448090, guid: a0c8719798885894ead99652b6066129, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.188963
@@ -3108,3 +3181,4 @@ SceneRoots:
   - {fileID: 8723123536909103439}
   - {fileID: 7009374203001682820}
   - {fileID: 896607234}
+  - {fileID: 778384021}
