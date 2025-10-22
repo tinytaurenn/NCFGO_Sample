@@ -294,6 +294,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc64ff707d914a64e95f2ac0bf554c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _automaticCloudSetups:
+    _adaptToEdgegap: 1
   _serverPort: 5000
   _maxConnections: 100
   _address: 127.0.0.1
@@ -314,6 +316,7 @@ MonoBehaviour:
   checkInterval: 0.33
   placement: 1
   _displayType: 3
+  _displayTarget: 6
   fontSize: 13
   textColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &270819952
@@ -1138,7 +1141,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: -13}
+  m_AnchoredPosition: {x: -0.00012207031, y: -13}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &833032034
@@ -3215,7 +3218,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8434608827485658001, guid: d6453eb29ed656a43a6b116981025c70, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

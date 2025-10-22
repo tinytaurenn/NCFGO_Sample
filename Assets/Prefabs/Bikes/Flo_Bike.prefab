@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 55715723252553051}
   - component: {fileID: 6352288641372126988}
   - component: {fileID: 2655007862008547288}
+  - component: {fileID: 8765415752808110665}
   m_Layer: 0
   m_Name: FrontWheel
   m_TagString: Untagged
@@ -172,6 +173,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8765415752808110665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670116148816275362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 817fe5016bd0a2a49a95b6eb338bb132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  _syncPosition: 2
+  _syncRotation: 2
+  _syncScale: 0
+  _syncParent: 0
+  _interpolateSettings: 7
+  _minBufferSize: 1
+  _maxBufferSize: 2
+  _characterControllerPatch: 0
+  _ownerAuth: 1
+  _interpolationTiming: 0
 --- !u!1 &920000331500466790
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +213,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4589289150332265283}
+  - component: {fileID: 227388014112307838}
   m_Layer: 0
   m_Name: HandlePivot
   m_TagString: Untagged
@@ -209,6 +242,37 @@ Transform:
   - {fileID: 1028829802071164922}
   m_Father: {fileID: 8989113988166448090}
   m_LocalEulerAnglesHint: {x: -17.935, y: 0, z: 0}
+--- !u!114 &227388014112307838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920000331500466790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 817fe5016bd0a2a49a95b6eb338bb132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  _syncPosition: 2
+  _syncRotation: 2
+  _syncScale: 0
+  _syncParent: 0
+  _interpolateSettings: 7
+  _minBufferSize: 1
+  _maxBufferSize: 2
+  _characterControllerPatch: 0
+  _ownerAuth: 1
+  _interpolationTiming: 0
 --- !u!1 &2085586564341097759
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,6 +517,7 @@ GameObject:
   - component: {fileID: 8241878317297992289}
   - component: {fileID: 2706238116202943031}
   - component: {fileID: 232069393981209198}
+  - component: {fileID: 5557795071912813296}
   m_Layer: 0
   m_Name: BackWheel
   m_TagString: Untagged
@@ -528,6 +593,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5557795071912813296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2652953388480415715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 817fe5016bd0a2a49a95b6eb338bb132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  _syncPosition: 2
+  _syncRotation: 2
+  _syncScale: 0
+  _syncParent: 0
+  _interpolateSettings: 7
+  _minBufferSize: 1
+  _maxBufferSize: 2
+  _characterControllerPatch: 0
+  _ownerAuth: 1
+  _interpolationTiming: 0
 --- !u!1 &2770241216780382271
 GameObject:
   m_ObjectHideFlags: 0
