@@ -104,8 +104,8 @@ public class BetterRBCharMovement : MonoBehaviour
         Vector3 forwardDir = MoveInput ; 
 
         // Origins for the two raycasts, starting from the base
-        Vector3 lowerRayOrigin = capsuleBase + forwardDir * m_StepDistance * 0.1f + Vector3.up * 0.05f;
-        Vector3 upperRayOrigin = capsuleBase + forwardDir * m_StepDistance * 0.1f + Vector3.up * (m_StepHeight + 0.05f);
+        Vector3 lowerRayOrigin = capsuleBase + forwardDir * (m_StepDistance * 0.1f) + Vector3.up * 0.05f;
+        Vector3 upperRayOrigin = capsuleBase + forwardDir * (m_StepDistance * 0.1f) + Vector3.up * (m_StepHeight + 0.05f);
 
         RaycastHit lowerHit;
         float newStepDistance = IsSprinting ? m_StepDistance * 1.5f : m_StepDistance;

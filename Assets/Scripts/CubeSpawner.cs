@@ -18,8 +18,16 @@ public class CubeSpawner : NetworkBehaviour
         if (Keyboard.current.eKey.isPressed)
         {
             Debug.Log("spawning ");
-            if(m_SpawnedCube != null) Destroy(m_SpawnedCube); m_SpawnedCube = null; 
-            m_SpawnedCube =  Instantiate(m_CubePrefab,transform.position, transform.rotation);
+            if (m_SpawnedCube)
+            {
+                m_SpawnedCube.transform.position = transform.position;
+                //Destroy(m_SpawnedCube); m_SpawnedCube = null; 
+            }
+            else
+            {
+                m_SpawnedCube =  Instantiate(m_CubePrefab,transform.position, transform.rotation);
+            }
+            
         }
     }
     protected override void OnSpawned(bool asServer)
