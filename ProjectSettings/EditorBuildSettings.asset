@@ -5,17 +5,8 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
-    path: Assets/NGO_Minimal_Setup/NGO_Setup.unity
-    guid: 175f9e2a754f8ee4691c281ea6056fa0
   - enabled: 1
-    path: Assets/PurrLobby/LobbyScenes/LobbySample.unity
-    guid: 163ab76a47bff6646b7627336bc33bdf
-  - enabled: 1
-    path: Assets/PurrLobby/LobbyScenes/NetworkedScene.unity
-    guid: e6ba6bbd3072e63449ec09bda4a1b5e6
+    path: Assets/Scenes/NetworkedScene_NotLobby.unity
+    guid: d761ab453a66a7e4381f3445705a98ee
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
