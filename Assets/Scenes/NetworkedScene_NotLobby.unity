@@ -128,6 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 104676489}
+  - component: {fileID: 104676500}
   - component: {fileID: 104676488}
   - component: {fileID: 104676498}
   - component: {fileID: 104676499}
@@ -151,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stopPlayingOnDisconnect: 0
-  _startServerFlags: 8
+  _startServerFlags: 9
   _startClientFlags: -1
   _cookieScope: 1
   _dontDestroyOnLoad: 0
@@ -193,9 +194,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _automaticCloudSetups:
     _adaptToEdgegap: 1
-  _serverPort: 30925
+  _serverPort: 5000
   _maxConnections: 100
-  _address: 2a9561790f51.pr.edgegap.net
+  _address: localhost
   _timeoutInSeconds: 5
   _pollEventsInUpdate: 0
   _networkSimulation:
@@ -222,6 +223,21 @@ MonoBehaviour:
   _ignoreNetworkRules: 0
   spawnPoints:
   - {fileID: 1888485003}
+--- !u!114 &104676500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104676486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f2abdd1f41540b43936029d87ccdcff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ConnectionStarter_3
+  m_IsLocalPlaying: 1
+  m_ServerAdress: 
+  m_ServerPort: 0
 --- !u!1 &273798950
 GameObject:
   m_ObjectHideFlags: 0
