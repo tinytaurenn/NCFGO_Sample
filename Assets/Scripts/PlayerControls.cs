@@ -90,7 +90,7 @@ public class PlayerControls : MonoBehaviour
     }
     void SetVehicleValue(Vector2 moveInput)
     {
-        if (m_CurrentVehicule == null) return; 
+        if (!m_CurrentVehicule ) return; 
         m_MoveValue = moveInput;
 
         //Debug.Log("Movement Input: " + moveInput);

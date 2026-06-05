@@ -2295,4 +2295,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MouseSensivity: 8
-  rotationClamp: 20
+  rotationClamp: 55
