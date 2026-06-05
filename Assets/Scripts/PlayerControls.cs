@@ -7,7 +7,9 @@ public class PlayerControls : MonoBehaviour
 {
     InputSystem_Actions m_InputActions; // test 
     [SerializeField] PlayerMovement m_PlayerMovement;
-    [SerializeField] PlayerCamera m_PlayerCamera; 
+    [SerializeField] PlayerCamera m_PlayerCamera;
+    [SerializeField] private Transform m_FootCameraAnchor; 
+    [SerializeField] private Transform m_BicycleCameraAnchor;
 
     Vector2 m_MoveValue;
     [SerializeField] public Vehicule m_CurrentVehicule;
@@ -144,9 +146,11 @@ public class PlayerControls : MonoBehaviour
         switch (m_LocomotionState)
         {
             case ELocomotionState.Foot:
+                m_PlayerCamera.transform.SetParent(m_FootCameraAnchor, false);
                 m_CurrentVehicule = null;
                 break;
             case ELocomotionState.Bicycle:
+                m_PlayerCamera.transform.SetParent(m_BicycleCameraAnchor, false);
                 //Physics.IgnoreCollision(m_CurrentVehicule.GetComponent<Collider>(), GetComponent<Collider>(), true);
                 
                 break;
