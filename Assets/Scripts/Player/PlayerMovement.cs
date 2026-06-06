@@ -26,6 +26,10 @@ public class PlayerMovement : BetterRBCharMovement
 
     [SerializeField] Transform m_NeckTransform;
     Quaternion m_WorldLookRotation;
+    
+    public Vehicule CurrentVehicule { get;  set; }
+
+    
     //[SerializeField] PlayerCamera m_PlayerCamera; 
 
     protected override void Awake()
@@ -70,6 +74,11 @@ public class PlayerMovement : BetterRBCharMovement
         //m_PlayerCamera.LookPos = m_NeckTransform.position + (m_WorldLookRotation * Vector3.forward * 10f); 
 
         Quaternion localTargetRot = Quaternion.Inverse(m_NeckTransform.parent.rotation) * m_WorldLookRotation;
+
+        if (CurrentVehicule)
+        {
+            localTargetRot *= CurrentVehicule.transform.rotation; 
+        }
         m_NeckTransform.localRotation = localTargetRot;
 
 

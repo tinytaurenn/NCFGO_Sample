@@ -120,6 +120,7 @@ public class PlayerControls : MonoBehaviour
     public void SwitchToBicycle(Vehicule vehicule)
     {
         m_CurrentVehicule = vehicule;
+        
         SwitchLocomotionState(ELocomotionState.Bicycle);
     }
     void LocomotionStateUpdate()
@@ -148,9 +149,13 @@ public class PlayerControls : MonoBehaviour
             case ELocomotionState.Foot:
                 m_PlayerCamera.transform.SetParent(m_FootCameraAnchor, false);
                 m_CurrentVehicule = null;
+                m_PlayerMovement.CurrentVehicule = null; 
+                //m_PlayerMovement.enabled = true;
                 break;
             case ELocomotionState.Bicycle:
                 m_PlayerCamera.transform.SetParent(m_BicycleCameraAnchor, false);
+                m_PlayerMovement.CurrentVehicule = m_CurrentVehicule;
+                //m_PlayerMovement.enabled = false;
                 //Physics.IgnoreCollision(m_CurrentVehicule.GetComponent<Collider>(), GetComponent<Collider>(), true);
                 
                 break;

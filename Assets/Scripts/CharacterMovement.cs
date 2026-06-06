@@ -232,8 +232,8 @@ public abstract class CharacterMovement : MonoBehaviour
         Vector3 capsuleBase = new Vector3(transform.position.x, capsuleBaseY, transform.position.z);
 
         // Raycast origins for the two horizontal checks
-        Vector3 lowerRayOrigin = capsuleBase + transform.forward * m_StepDistance * 0.1f + Vector3.up * 0.05f;
-        Vector3 upperRayOrigin = capsuleBase + transform.forward * m_StepDistance * 0.1f + Vector3.up * (m_StepHeight + 0.05f);
+        Vector3 lowerRayOrigin = capsuleBase + transform.forward * (m_StepDistance * 0.1f) + Vector3.up * 0.05f;
+        Vector3 upperRayOrigin = capsuleBase + transform.forward * (m_StepDistance * 0.1f) + Vector3.up * (m_StepHeight + 0.05f);
 
         RaycastHit lowerHit;
 
@@ -281,9 +281,9 @@ public abstract class CharacterMovement : MonoBehaviour
             }
             if (m_Isgrounded)
             {
-                if (!wasGrounded || m_Platform == null)
+                if (!wasGrounded || !m_Platform)
                 {
-                    if (raycast.rigidbody != null)
+                    if (raycast.rigidbody)
                     {
                         m_IsOnPlatform = raycast.rigidbody.TryGetComponent(out Transform platform);
                         m_Platform = m_IsOnPlatform ? platform : null;

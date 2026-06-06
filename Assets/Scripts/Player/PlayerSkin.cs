@@ -7,6 +7,7 @@ public class PlayerSkin : NetworkBehaviour
     [SerializeField] Renderer[] m_Renderers; 
     [SerializeField] Material[] m_Materials;
     public SyncVar<int> m_SkinIndex = new SyncVar<int>(ownerAuth : true);
+    
 
     private void Awake()
     {
@@ -27,6 +28,14 @@ public class PlayerSkin : NetworkBehaviour
         int index = Random.Range(0, m_Materials.Length);
         m_SkinIndex.value = index;
         //Debug.Log("index  is " + index);
+        if(isOwner)
+        {
+            Debug.Log("i own this");
+            foreach (Renderer renderer in m_Renderers)
+            {
+                renderer.gameObject.layer = LayerMask.NameToLayer("Player");
+            }
+        }
 
 
     }
