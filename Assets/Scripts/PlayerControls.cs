@@ -18,6 +18,11 @@ public class PlayerControls : MonoBehaviour
      IUsable m_UsableFocus;
     //to serialize
     [SerializeField] GameObject m_UsableFocusDebug; 
+    
+    //Pause
+    
+    bool IsPauseOpen = false;
+    [SerializeField] GameObject m_PauseMenuGO;
 
 
     public enum ELocomotionState
@@ -48,14 +53,38 @@ public class PlayerControls : MonoBehaviour
     {
         m_InputActions.Player.Enable();
         m_InputActions.Player.Interact.performed += OnInteract; 
+        m_InputActions.Player.Pause.performed += OnTogglePauseMenu;
 
 
+    }
+
+    private void OnTogglePauseMenu(InputAction.CallbackContext context)
+    {
+        
+        TogglePauseMenu();
+        
+        
+    }
+
+    void TogglePauseMenu()
+    {
+        m_PauseMenuGO.SetActive(!IsPauseOpen);
+        IsPauseOpen = !IsPauseOpen;
+    }
+
+    public void PauseRespawnButton()
+    {
+        Debug.Log("pause respawn button");
+        //transform.SetPositionAndRotation(GameManager.Instance.PlayerSpawnPoint.position, Quaternion.identity);
+        TogglePauseMenu();
+        transform.GetComponent<PlayerEntity>().PlayerRespawn();
     }
 
 
     private void OnDisable()
     {
         m_InputActions.Player.Interact.performed -= OnInteract;
+        m_InputActions.Player.Pause.performed -= OnTogglePauseMenu;
         m_InputActions.Player.Disable();
 
     }
@@ -67,7 +96,12 @@ public class PlayerControls : MonoBehaviour
             Debug.Log("can't use while in vehicle");
             return; 
         }
-        m_UsableFocus?.TryUse(); 
+        if(m_UsableFocus == null)
+        {
+            Debug.Log("no usableFocus");
+            return; 
+        }
+        m_UsableFocus?.TryUse(transform.GetComponent<PlayerEntity>()); 
     }
 
     void SetMovementValue(Vector2 moveInput)
@@ -147,12 +181,21 @@ public class PlayerControls : MonoBehaviour
         switch (m_LocomotionState)
         {
             case ELocomotionState.Foot:
+
+                if (m_CurrentVehicule)
+                {
+                    m_CurrentVehicule.HasDriver.value = false;
+                    m_CurrentVehicule.RemoveOwnership();
+                }
+                transform.SetParent(null,true);
+                transform.GetComponent<Rigidbody>().isKinematic = false;
                 m_PlayerCamera.transform.SetParent(m_FootCameraAnchor, false);
                 m_CurrentVehicule = null;
                 m_PlayerMovement.CurrentVehicule = null; 
                 //m_PlayerMovement.enabled = true;
                 break;
             case ELocomotionState.Bicycle:
+                transform.GetComponent<Rigidbody>().isKinematic = true;
                 m_PlayerCamera.transform.SetParent(m_BicycleCameraAnchor, false);
                 m_PlayerMovement.CurrentVehicule = m_CurrentVehicule;
                 //m_PlayerMovement.enabled = false;

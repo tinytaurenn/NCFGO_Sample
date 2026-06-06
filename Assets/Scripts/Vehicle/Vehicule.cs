@@ -22,18 +22,23 @@ public class Vehicule : NetworkBehaviour, IUsable
 
     }
 
-    public void TryUse()
+    public void TryUse(PlayerEntity playerEntity)
     {
         if (HasDriver.value)
         {
             Debug.Log("already used as driver");
             return;
         }
+        
 
-        if (PlayerEntity.TryGetLocal(out PlayerEntity localPlayer))
+        if (playerEntity)
         {
 
-            localPlayer.EnterVehicle(this);
+            playerEntity.EnterVehicle(this);
+        }
+        else
+        {
+            Debug.Log("no local player found");
         }
     }
 }

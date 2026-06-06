@@ -39,10 +39,20 @@ public class PlayerEntity : PlayerIdentity<PlayerEntity>
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
 
-        m_Rigibody.isKinematic = true;
+        
         //m_PlayerControls.SwitchLocomotionState(PlayerControls.ELocomotionState.Bicycle);
         m_PlayerControls.SwitchToBicycle(vehicle);
 
+    }
+
+ 
+
+    public void PlayerRespawn()
+    {
+        
+        
+        m_PlayerControls.SwitchLocomotionState(PlayerControls.ELocomotionState.Foot);
+        transform.SetPositionAndRotation(GameManager.Instance.PlayerSpawnPoint.position, Quaternion.identity);
     }
 
 

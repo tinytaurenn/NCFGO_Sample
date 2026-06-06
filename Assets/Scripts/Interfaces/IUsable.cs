@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IUsable
 {
-    public void TryUse(); 
+    public void TryUse(PlayerEntity  playerEntity); 
 }
