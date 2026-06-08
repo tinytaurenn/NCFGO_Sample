@@ -182,12 +182,13 @@ public class PlayerControls : MonoBehaviour
         {
             case ELocomotionState.Foot:
 
+                
+                transform.SetParent(null,true);
                 if (m_CurrentVehicule)
                 {
                     m_CurrentVehicule.HasDriver.value = false;
-                    m_CurrentVehicule.RemoveOwnership();
+                    //m_CurrentVehicule.RemoveOwnership();
                 }
-                transform.SetParent(null,true);
                 transform.GetComponent<Rigidbody>().isKinematic = false;
                 m_PlayerCamera.transform.SetParent(m_FootCameraAnchor, false);
                 m_CurrentVehicule = null;

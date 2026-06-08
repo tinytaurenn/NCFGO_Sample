@@ -36,7 +36,7 @@ public class RPC_Box : NetworkBehaviour
         if(Keyboard.current.numpad1Key.isPressed)
         {
            
-            SetColor(Color.red);
+            SetColor(Color.red); 
         }
         if(Keyboard.current.numpad2Key.isPressed)
         {

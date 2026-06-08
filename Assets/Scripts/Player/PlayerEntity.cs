@@ -30,6 +30,16 @@ public class PlayerEntity : PlayerIdentity<PlayerEntity>
         //Debug.Log("player count"+  PlayerEntity.allPlayers.Count); 
     }
 
+    protected override void OnSpawned()
+    {
+        base.OnSpawned();
+        if (isOwner)
+        {
+            GameManager.Instance.LocalPlayer = this;
+        }
+        
+    }
+
     public void EnterVehicle(Vehicule vehicle)
     {
         Debug.Log("Entering vehicle"); 
@@ -50,10 +60,11 @@ public class PlayerEntity : PlayerIdentity<PlayerEntity>
     public void PlayerRespawn()
     {
         
-        
         m_PlayerControls.SwitchLocomotionState(PlayerControls.ELocomotionState.Foot);
         transform.SetPositionAndRotation(GameManager.Instance.PlayerSpawnPoint.position, Quaternion.identity);
     }
+
+    
 
 
 }
