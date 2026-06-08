@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerEntity : PlayerIdentity<PlayerEntity>
 {
     PlayerControls m_PlayerControls;
+    
     Rigidbody m_Rigibody;
     CapsuleCollider m_collider; 
 
@@ -45,6 +46,7 @@ public class PlayerEntity : PlayerIdentity<PlayerEntity>
         Debug.Log("Entering vehicle"); 
         vehicle.GiveOwnership(localPlayer);
         vehicle.HasDriver.value = true;
+        
         transform.SetParent(vehicle.transform, false); 
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;

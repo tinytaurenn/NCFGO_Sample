@@ -126,7 +126,7 @@ public class BetterRBCharMovement : MonoBehaviour
                     {
                         float heightDifference = highestHitY - capsuleBase.y;
                         Debug.Log(heightDifference); 
-                        force = Vector3.up * heightDifference * distanceStepMultiplier; 
+                        force = Vector3.up * (heightDifference * distanceStepMultiplier); 
                     }
 
                     //Debug.Log("adding force");
@@ -159,6 +159,8 @@ public class BetterRBCharMovement : MonoBehaviour
     {
         MoveInput = Vector3.zero;
         m_RigidBody.linearVelocity = Vector3.zero;
+        m_Animator.SetFloat("VelocityZ", 0);
+        m_Animator.SetFloat("VelocityX", 0);
     }
 
     public void Bump(Vector3 normalizedDirection, float force)

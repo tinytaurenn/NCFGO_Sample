@@ -1,5 +1,6 @@
 using Steamworks;
 using System;
+using System.Net;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,6 +24,7 @@ public class PlayerControls : MonoBehaviour
     
     bool IsPauseOpen = false;
     [SerializeField] GameObject m_PauseMenuGO;
+    [SerializeField] UI_Manager m_UI_Manager;
 
 
     public enum ELocomotionState
@@ -168,6 +170,7 @@ public class PlayerControls : MonoBehaviour
                 SetIsSprinting(m_InputActions.Player.Sprint.IsPressed());
                 break;
             case ELocomotionState.Bicycle:
+                m_PlayerMovement.StopMovement();
                 SetVehicleValue(m_InputActions.Player.Move.ReadValue<Vector2>());
                 m_PlayerMovement.MouseDelta = m_InputActions.Player.Look.ReadValue<Vector2>();
                 m_PlayerCamera.MouseDelta = m_InputActions.Player.Look.ReadValue<Vector2>();
@@ -226,19 +229,25 @@ public class PlayerControls : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hitInfo, m_UsableDistance))
         {
             //Debug.Log("hitting something : " + hitInfo.collider.name);
-
+            if (m_CurrentVehicule && hitInfo.transform.gameObject == m_CurrentVehicule.gameObject)
+            {
+                m_UsableFocus = null;   
+                m_UsableFocusDebug = null;
+                m_UI_Manager.ShowText(false);
+                return; 
+            }
             if (hitInfo.collider.TryGetComponent<IUsable>(out IUsable usable))
             {
                 m_UsableFocus = usable;
                 m_UsableFocusDebug = hitInfo.collider.gameObject; 
                 //Debug.Log("hitting usable : " + hitInfo.collider.name);
-                UI_Manager.Instance.SetUseText("Press Numpad 3 to use " + hitInfo.collider.transform.root.name);
-                UI_Manager.Instance.ShowText(true);
+                m_UI_Manager.SetUseText("E : Use  " + hitInfo.collider.transform.root.name);
+                m_UI_Manager.ShowText(true);
                 return;
             }
         }
         m_UsableFocus = null;   
         m_UsableFocusDebug = null;
-        UI_Manager.Instance.ShowText(false);
+        m_UI_Manager.ShowText(false);
     }
 }
