@@ -158,7 +158,8 @@ public class BetterRBCharMovement : MonoBehaviour
     public virtual void StopMovement()
     {
         MoveInput = Vector3.zero;
-        m_RigidBody.linearVelocity = Vector3.zero;
+        if(!m_RigidBody.isKinematic)m_RigidBody.linearVelocity = Vector3.zero;
+        
         m_Animator.SetFloat("VelocityZ", 0);
         m_Animator.SetFloat("VelocityX", 0);
     }
