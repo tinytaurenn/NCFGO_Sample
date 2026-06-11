@@ -47,7 +47,7 @@ public class PlayerEntity : PlayerIdentity<PlayerEntity>
         vehicle.GiveOwnership(localPlayer);
         vehicle.HasDriver.value = true;
         
-        transform.SetParent(vehicle.transform, false); 
+        transform.SetParent(vehicle.PivotAnchor, false); 
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
 
