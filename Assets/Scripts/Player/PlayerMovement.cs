@@ -79,6 +79,12 @@ public class PlayerMovement : BetterRBCharMovement
         {
             localTargetRot *= CurrentVehicule.transform.rotation; 
         }
+        
+        Vector3 localTargetEuler = localTargetRot.eulerAngles;
+        localTargetEuler.x = 0;
+        localTargetEuler.z = 0;
+        localTargetRot = Quaternion.Euler(localTargetEuler);
+        
         m_NeckTransform.localRotation = localTargetRot;
 
 
