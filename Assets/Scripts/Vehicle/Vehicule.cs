@@ -6,7 +6,9 @@ public class Vehicule : NetworkBehaviour, IUsable
 {
     public SyncVar<bool> HasDriver = new SyncVar<bool>(ownerAuth: true);
     public VehiculeMovement m_VehicleMovement;
-    public Transform PivotAnchor; 
+    public Transform PivotAnchor;
+    public Transform HandAnchorRight; 
+    public Transform HandAnchorLeft; 
 
     private void Awake()
     {

@@ -1,6 +1,7 @@
 using Steamworks;
 using System;
 using System.Net;
+using UnityEngine.Animations.Rigging;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,6 +20,11 @@ public class PlayerControls : MonoBehaviour
      IUsable m_UsableFocus;
     //to serialize
     [SerializeField] GameObject m_UsableFocusDebug; 
+    // bicycle
+    [SerializeField] Transform RightHandIK;
+    [SerializeField] Transform LeftHandIK;
+    [SerializeField] TwoBoneIKConstraint m_RightHandIKConstraint;
+    [SerializeField] TwoBoneIKConstraint m_LeftHandIKConstraint;
     
     //Pause
     
@@ -51,6 +57,12 @@ public class PlayerControls : MonoBehaviour
         //
 
     }
+
+    private void FixedUpdate()
+    {
+        FixedLocomotionStateUpdate();
+    }
+
     private void OnEnable()
     {
         m_InputActions.Player.Enable();
@@ -157,6 +169,7 @@ public class PlayerControls : MonoBehaviour
     {
         m_CurrentVehicule = vehicule;
         
+        
         SwitchLocomotionState(ELocomotionState.Bicycle);
     }
     void LocomotionStateUpdate()
@@ -174,6 +187,25 @@ public class PlayerControls : MonoBehaviour
                 SetVehicleValue(m_InputActions.Player.Move.ReadValue<Vector2>());
                 m_PlayerMovement.MouseDelta = m_InputActions.Player.Look.ReadValue<Vector2>();
                 m_PlayerCamera.MouseDelta = m_InputActions.Player.Look.ReadValue<Vector2>();
+                break;
+            default:
+                break;
+        }
+    }
+    void FixedLocomotionStateUpdate()
+    {
+        switch (m_LocomotionState)
+        {
+            case ELocomotionState.Foot:
+                
+                break;
+            case ELocomotionState.Bicycle:
+                RightHandIK.transform.position = Vector3.Lerp(RightHandIK.transform.position, m_CurrentVehicule.HandAnchorRight.position, 15 * Time.fixedDeltaTime);
+                LeftHandIK.transform.position = Vector3.Lerp(LeftHandIK.transform.position, m_CurrentVehicule.HandAnchorLeft.position, 15 * Time.fixedDeltaTime);
+                RightHandIK.transform.rotation = Quaternion.Slerp(RightHandIK.transform.rotation, m_CurrentVehicule.HandAnchorRight.rotation, 15 * Time.fixedDeltaTime);
+                LeftHandIK.transform.rotation = Quaternion.Slerp(LeftHandIK.transform.rotation, m_CurrentVehicule.HandAnchorLeft.rotation, 15 * Time.fixedDeltaTime);
+                
+                
                 break;
             default:
                 break;
@@ -199,6 +231,13 @@ public class PlayerControls : MonoBehaviour
                 //m_PlayerMovement.enabled = true;
                 break;
             case ELocomotionState.Bicycle:
+                //bicycle
+                
+                m_RightHandIKConstraint.weight = 1f;
+                m_LeftHandIKConstraint.weight = 1f;
+           
+                //
+                
                 transform.GetComponent<Rigidbody>().isKinematic = true;
                 m_PlayerCamera.transform.SetParent(m_BicycleCameraAnchor, false);
                 m_PlayerMovement.CurrentVehicule = m_CurrentVehicule;
@@ -217,6 +256,8 @@ public class PlayerControls : MonoBehaviour
             case ELocomotionState.Foot:
                 break;
             case ELocomotionState.Bicycle:
+                m_RightHandIKConstraint.weight = 0f;
+                m_LeftHandIKConstraint.weight = 0f;
                 break;
             default:
                 break;

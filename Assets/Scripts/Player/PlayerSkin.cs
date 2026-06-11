@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerSkin : NetworkBehaviour
 {
     [SerializeField] Renderer[] m_Renderers; 
+    [SerializeField] Renderer[] m_RenderersPlayerCantSee; 
     [SerializeField] Material[] m_Materials;
     public SyncVar<int> m_SkinIndex = new SyncVar<int>(ownerAuth : true);
     
@@ -31,10 +32,18 @@ public class PlayerSkin : NetworkBehaviour
         if(isOwner)
         {
             Debug.Log("i own this");
-            foreach (Renderer renderer in m_Renderers)
+            foreach (Renderer renderer in m_RenderersPlayerCantSee)
             {
                 renderer.gameObject.layer = LayerMask.NameToLayer("Player");
+                
             }
+            foreach (Renderer renderer_2 in m_Renderers)
+            {
+                renderer_2.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+                
+            }
+            
+            
         }
 
 

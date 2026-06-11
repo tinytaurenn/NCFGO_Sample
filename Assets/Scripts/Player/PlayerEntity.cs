@@ -1,12 +1,15 @@
 using PurrNet;
 using UnityEngine;
 
+
 public class PlayerEntity : PlayerIdentity<PlayerEntity>
 {
     PlayerControls m_PlayerControls;
     
     Rigidbody m_Rigibody;
-    CapsuleCollider m_collider; 
+    CapsuleCollider m_collider;
+    
+
 
     private void Awake()
     {
@@ -50,6 +53,7 @@ public class PlayerEntity : PlayerIdentity<PlayerEntity>
         transform.SetParent(vehicle.PivotAnchor, false); 
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
+
 
         
         //m_PlayerControls.SwitchLocomotionState(PlayerControls.ELocomotionState.Bicycle);
