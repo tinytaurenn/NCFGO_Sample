@@ -8,6 +8,9 @@ using UnityEngine.InputSystem;
 public class PlayerControls : MonoBehaviour
 {
     InputSystem_Actions m_InputActions; // test 
+    [Space(10)]
+    [Header("Movement")]
+    [Space(10)]
     [SerializeField] PlayerMovement m_PlayerMovement;
     [SerializeField] PlayerCamera m_PlayerCamera;
     [SerializeField] private Transform m_FootCameraAnchor; 
@@ -21,16 +24,27 @@ public class PlayerControls : MonoBehaviour
     //to serialize
     [SerializeField] GameObject m_UsableFocusDebug; 
     // bicycle
+    [Space(10)]
+    [Header("IKs")]
+    [Space(10)]
     [SerializeField] Transform RightHandIK;
     [SerializeField] Transform LeftHandIK;
     [SerializeField] TwoBoneIKConstraint m_RightHandIKConstraint;
     [SerializeField] TwoBoneIKConstraint m_LeftHandIKConstraint;
+    //
+    [SerializeField] Transform RightFootIK;
+    [SerializeField] Transform LeftFootIK;
+    [SerializeField] TwoBoneIKConstraint m_RightFootIKConstraint;
+    [SerializeField] TwoBoneIKConstraint m_LeftFootIKConstraint;
     
+    [Space(10)]
+    [Header("Pause")]
+    [Space(10)]
     //Pause
     
-    bool IsPauseOpen = false;
     [SerializeField] GameObject m_PauseMenuGO;
     [SerializeField] UI_Manager m_UI_Manager;
+    bool IsPauseOpen = false;
 
 
     public enum ELocomotionState
@@ -38,6 +52,9 @@ public class PlayerControls : MonoBehaviour
         Foot,
         Bicycle
     }
+    [Space(10)]
+    [Header("States")]
+    [Space(10)]
     [SerializeField] ELocomotionState m_LocomotionState = ELocomotionState.Foot;
 
     private void Awake()
@@ -205,6 +222,13 @@ public class PlayerControls : MonoBehaviour
                 RightHandIK.transform.rotation = Quaternion.Slerp(RightHandIK.transform.rotation, m_CurrentVehicule.HandAnchorRight.rotation, 15 * Time.fixedDeltaTime);
                 LeftHandIK.transform.rotation = Quaternion.Slerp(LeftHandIK.transform.rotation, m_CurrentVehicule.HandAnchorLeft.rotation, 15 * Time.fixedDeltaTime);
                 
+                //foots
+                
+                RightFootIK.transform.position = Vector3.Lerp(RightFootIK.transform.position, m_CurrentVehicule.FootAnchorRight.position, 15 * Time.fixedDeltaTime);
+                LeftFootIK.transform.position = Vector3.Lerp(LeftFootIK.transform.position, m_CurrentVehicule.FootAnchorLeft.position, 15 * Time.fixedDeltaTime);
+                //RightFootIK.transform.rotation = Quaternion.Slerp(RightFootIK.transform.rotation, m_CurrentVehicule.transform.rotation, 15 * Time.fixedDeltaTime);
+                //LeftFootIK.transform.rotation = Quaternion.Slerp(LeftFootIK.transform.rotation, m_CurrentVehicule.transform.rotation, 15 * Time.fixedDeltaTime);
+                
                 
                 break;
             default:
@@ -235,6 +259,8 @@ public class PlayerControls : MonoBehaviour
                 
                 m_RightHandIKConstraint.weight = 1f;
                 m_LeftHandIKConstraint.weight = 1f;
+                m_LeftFootIKConstraint.weight = 1f;
+                m_RightFootIKConstraint.weight = 1f;
            
                 //
                 

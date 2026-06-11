@@ -9,6 +9,8 @@ public class Vehicule : NetworkBehaviour, IUsable
     public Transform PivotAnchor;
     public Transform HandAnchorRight; 
     public Transform HandAnchorLeft; 
+    public Transform FootAnchorLeft; 
+    public Transform FootAnchorRight; 
 
     private void Awake()
     {

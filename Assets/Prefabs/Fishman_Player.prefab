@@ -3296,6 +3296,10 @@ MonoBehaviour:
   LeftHandIK: {fileID: 6739211689714236473}
   m_RightHandIKConstraint: {fileID: 7948461102865591274}
   m_LeftHandIKConstraint: {fileID: 5412583663710655799}
+  RightFootIK: {fileID: 9032332433412017003}
+  LeftFootIK: {fileID: 4946858894219325429}
+  m_RightFootIKConstraint: {fileID: 2473748589261765613}
+  m_LeftFootIKConstraint: {fileID: 1562976474396752798}
   m_PauseMenuGO: {fileID: 3810405171218532940}
   m_UI_Manager: {fileID: 4134486627974023136}
   m_LocomotionState: 0
