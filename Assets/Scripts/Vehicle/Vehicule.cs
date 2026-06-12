@@ -21,13 +21,26 @@ public class Vehicule : NetworkBehaviour, IUsable
     }
     void Start()
     {
-        
+        Debug.Log("has Owner" + hasConnectedOwner);
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    protected override void OnSpawned()
+    {
+        base.OnSpawned();
+        
+    }
+
+    protected override void OnOwnerDisconnected(PlayerID ownerId)
+    {
+        base.OnOwnerDisconnected(ownerId);
+        Debug.Log("owner disconected");
+        HasDriver.value = false;
     }
 
     private void FixedUpdate()

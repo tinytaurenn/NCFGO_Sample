@@ -1,4 +1,5 @@
 using PurrNet;
+using PurrNet.Transports;
 using UnityEngine;
 
 
@@ -54,6 +55,7 @@ public class PlayerEntity : PlayerIdentity<PlayerEntity>
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
 
+        Debug.Log("vehcilule owner : " );
 
         
         //m_PlayerControls.SwitchLocomotionState(PlayerControls.ELocomotionState.Bicycle);
@@ -70,7 +72,8 @@ public class PlayerEntity : PlayerIdentity<PlayerEntity>
         transform.SetPositionAndRotation(GameManager.Instance.PlayerSpawnPoint.position, Quaternion.identity);
     }
 
-    
-
-
+    protected override void OnSpawned(bool asServer)
+    {
+        base.OnSpawned(asServer);
+    }
 }

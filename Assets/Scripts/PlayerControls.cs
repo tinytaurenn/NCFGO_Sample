@@ -74,6 +74,10 @@ public class PlayerControls : NetworkBehaviour
     private void OnRightHandIkWeightChanged(float obj)
     {
         Debug.Log("Ik WeightChanged");
+        m_RightHandIKConstraint.weight = 1f;
+        m_LeftHandIKConstraint.weight = 1f;
+        m_LeftFootIKConstraint.weight = 1f;
+        m_RightFootIKConstraint.weight = 1f;
     }
 
     // Update is called once per frame
@@ -268,11 +272,8 @@ public class PlayerControls : NetworkBehaviour
             case ELocomotionState.Bicycle:
                 //bicycle
                 
-                m_RightHandIKConstraint.weight = 1f;
-                m_LeftHandIKConstraint.weight = 1f;
-                m_LeftFootIKConstraint.weight = 1f;
-                m_RightFootIKConstraint.weight = 1f;
-                RightHandIKWeight.value = 3.4f; 
+                
+                RightHandIKWeight.value = 1f; 
            
                 //
                 

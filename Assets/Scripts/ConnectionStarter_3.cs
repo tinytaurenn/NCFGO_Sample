@@ -26,7 +26,8 @@ public class ConnectionStarter_3 : MonoBehaviour
         [SerializeField] TextMeshProUGUI m_ServerPortText;
         [SerializeField] TMP_InputField m_ServerAdressInputField;
         [SerializeField] TMP_InputField m_ServerPortInputField;
-        [SerializeField]  GameObject m_ConnectionUI; 
+        [SerializeField]  GameObject m_ConnectionUI;
+        [SerializeField] private bool IsDedicatedServer = false; 
          
  
 
@@ -47,11 +48,22 @@ public class ConnectionStarter_3 : MonoBehaviour
 
         private void Start()
         {
+            
             if (!_networkManager)
             {
                 PurrLogger.LogError($"Failed to start connection. {nameof(NetworkManager)} is null!", this);
                 return;
             }
+
+            if (IsDedicatedServer)
+            {
+                _networkManager.startClientFlags = (StartFlags)(-1);
+                _networkManager.startServerFlags = StartFlags.ServerBuild | StartFlags.Editor; 
+                _networkManager.StartServer();
+                
+            }
+            
+            
             //StartNormal(); 
 
             

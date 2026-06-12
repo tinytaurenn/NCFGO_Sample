@@ -214,7 +214,7 @@ MonoBehaviour:
   _transport: {fileID: 104676498}
   _networkPrefabs: {fileID: 11400000, guid: 61ab6c8df370f33429ba4e9c3aa2c17e, type: 2}
   _networkAssets: {fileID: 0}
-  _networkRules: {fileID: 11400000, guid: d8799083b96579a42b8b2d03e4ceae98, type: 2}
+  _networkRules: {fileID: 11400000, guid: bf0dd111cfab80445a956bd0aa5027ec, type: 2}
   _visibilityRules: {fileID: 11400000, guid: 8f014a5bd8dc68646a2a3c0b18c5bbd8, type: 2}
   _authenticator: {fileID: 0}
   _tickRate: 20
@@ -249,9 +249,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _automaticCloudSetups:
     _adaptToEdgegap: 1
-  _serverPort: 5000
+  _serverPort: 30637
   _maxConnections: 100
-  _address: 
+  _address: 10f47699c0a9.pr.edgegap.net
   _timeoutInSeconds: 5
   _pollEventsInUpdate: 0
   _networkSimulation:
@@ -301,6 +301,7 @@ MonoBehaviour:
   m_ServerAdressInputField: {fileID: 970782882}
   m_ServerPortInputField: {fileID: 819116091}
   m_ConnectionUI: {fileID: 833681207}
+  IsDedicatedServer: 0
 --- !u!1 &246261452
 GameObject:
   m_ObjectHideFlags: 0
@@ -1241,7 +1242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &829197084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1919,6 +1920,10 @@ PrefabInstance:
     - target: {fileID: 7214929847087339021, guid: 2d7580695c0389d4b996be7b5d298d70, type: 3}
       propertyPath: m_Name
       value: Game_UI_Sample_Dedicated
+      objectReference: {fileID: 0}
+    - target: {fileID: 7214929847087339021, guid: 2d7580695c0389d4b996be7b5d298d70, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

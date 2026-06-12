@@ -55,6 +55,9 @@ public class GameManager : NetworkBehaviour
         if(isServer)
         {
             Debug.Log("server isServer");
+
+            networkManager.onPlayerLeft += OnPlayerLeft;
+
         }
         if(isHost)
         {
@@ -62,10 +65,17 @@ public class GameManager : NetworkBehaviour
         }
     }
 
+    private void OnPlayerLeft(PlayerID player, bool asServer)
+    {
+        Debug.Log("player left :  " + player);
+        
+    }
+
 
     // Update is called once per frame
     void Update()
     {
+        return;
         
         if(Keyboard.current.numpad1Key.isPressed)
         {
