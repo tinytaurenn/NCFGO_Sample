@@ -44,10 +44,32 @@ public class ConnectionStarter_3 : MonoBehaviour
             {
                 PurrLogger.LogError($"Failed to get {nameof(UDPTransport)} component.", this);
             }
-            
+
+            _networkManager.onNetworkShutdown += OnNetworkShutDown;
+            _networkManager.onNetworkStarted += OnNetworkStarted;
 
             //_lobbyDataHolder = FindFirstObjectByType<LobbyDataHolder>();
         }
+
+        private void OnNetworkStarted(NetworkManager manager, bool asServer)
+        {
+            Debug.Log("Network Started");
+            
+        }
+
+        private void OnNetworkShutDown(NetworkManager manager, bool asServer)
+        {
+            Debug.Log("Network ShutDown");
+            if (!m_ConnectionUI) return; 
+            m_ConnectionUI.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+            StartCoroutine(WaitForAnalyzeNetworkStatus());
+            
+            
+        }
+        
+        
 
         private void Start()
         {
@@ -84,6 +106,7 @@ public class ConnectionStarter_3 : MonoBehaviour
                 _networkManager.startClientFlags = (StartFlags)(-1);
                 _networkManager.startServerFlags = StartFlags.ServerBuild | StartFlags.Editor; 
                 m_UDPTransport.address = "127.0.0.1";
+          
                 m_UDPTransport.serverPort = 5000;
                 _networkManager.StartServer();
             }
@@ -100,6 +123,7 @@ public class ConnectionStarter_3 : MonoBehaviour
             _networkManager.StartClient(); 
             
             m_ConnectionUI.SetActive(false);
+            StartCoroutine(WaitForAnalyzeNetworkStatus());
         }
         
         public void StartLocalConnectionButton()
@@ -122,6 +146,24 @@ public class ConnectionStarter_3 : MonoBehaviour
             m_IsLocalPlaying = false;
             StartNormal();
         }
+
+        IEnumerator WaitForAnalyzeNetworkStatus()
+        {
+            yield return new WaitForSeconds(0.5f);
+            if (_networkManager.isOffline)
+            {
+                m_ConnectionUI.SetActive(true);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.Confined;
+            }
+            else
+            {
+                m_ConnectionUI.SetActive(false);
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+        }
+        
 
         
      

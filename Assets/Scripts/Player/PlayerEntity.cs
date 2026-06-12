@@ -43,6 +43,9 @@ public class PlayerEntity : PlayerIdentity<PlayerEntity>
             GameManager.Instance.LocalPlayer = this;
         }
         
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        
     }
 
     public void EnterVehicle(Vehicule vehicle)

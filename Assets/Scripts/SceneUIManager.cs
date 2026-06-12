@@ -19,6 +19,9 @@ public class SceneUIManager : MonoBehaviour
         }
     }
 
+  
+    
+
     void Start()
     {
         

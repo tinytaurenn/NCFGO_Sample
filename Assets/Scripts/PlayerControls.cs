@@ -128,6 +128,8 @@ public class PlayerControls : NetworkBehaviour
     {
         m_PauseMenuGO.SetActive(!IsPauseOpen);
         IsPauseOpen = !IsPauseOpen;
+        Cursor.visible = IsPauseOpen; 
+        Cursor.lockState = IsPauseOpen ? CursorLockMode.Confined : CursorLockMode.Locked;
     }
 
     public void PauseRespawnButton()
@@ -145,6 +147,8 @@ public class PlayerControls : NetworkBehaviour
         TogglePauseMenu();
         transform.GetComponent<PlayerEntity>().PlayerDisconnect();
         SceneUIManager.Instance.ConnectionWindow.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
     }
     
 

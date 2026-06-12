@@ -147,7 +147,7 @@ public class BetterRBCharMovement : MonoBehaviour
 
     protected virtual void UpdateAnimator()
     {
-        Debug.Log("Updating Animator");
+        //Debug.Log("Updating Animator");
         if (m_Animator.GetBool("OnBike"))
         {
             return; 
@@ -162,7 +162,7 @@ public class BetterRBCharMovement : MonoBehaviour
 
     public virtual void StopMovement()
     {
-        Debug.Log("stopping movement");
+        //Debug.Log("stopping movement");
         MoveInput = Vector3.zero;
         PreviousMoveInputRaw = Vector3.zero;
         MoveInputRaw = Vector3.zero;
