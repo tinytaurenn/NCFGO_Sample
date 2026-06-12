@@ -115,7 +115,7 @@ Transform:
   m_GameObject: {fileID: 435363827892926822}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.00379, z: -0.00326}
+  m_LocalPosition: {x: -0, y: 0.00379, z: -0.00408}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -505,6 +505,7 @@ GameObject:
   - component: {fileID: 7237608539866160966}
   - component: {fileID: 1888288494264302644}
   - component: {fileID: 7763149946242509280}
+  - component: {fileID: 7761690736750042171}
   m_Layer: 0
   m_Name: Motor
   m_TagString: Untagged
@@ -586,6 +587,38 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7761690736750042171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2372291806529617676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 817fe5016bd0a2a49a95b6eb338bb132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PurrNet.Runtime::PurrNet.NetworkTransform
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
+  _syncPosition: 0
+  _syncRotation: 2
+  _syncScale: 0
+  _syncParent: 0
+  _forceSleepRb: 1
+  _interpolateSettings: 7
+  _minBufferSize: 1
+  _maxBufferSize: 2
+  _characterControllerPatch: 0
+  _ownerAuth: 1
+  _interpolationTiming: 0
 --- !u!1 &2499479238699879127
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,6 +1013,7 @@ MonoBehaviour:
   HandAnchorLeft: {fileID: 2228501218884254264}
   FootAnchorLeft: {fileID: 5425153768436230150}
   FootAnchorRight: {fileID: 6449882752860130808}
+  m_RotorTransform: {fileID: 7237608539866160966}
 --- !u!114 &7973965580525016109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1470,7 +1504,7 @@ Transform:
   m_GameObject: {fileID: 4992546344914174071}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.00202, z: 0.00309}
+  m_LocalPosition: {x: -0, y: -0.00202, z: 0.00392}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

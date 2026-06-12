@@ -1,11 +1,12 @@
 using Steamworks;
 using System;
 using System.Net;
+using PurrNet;
 using UnityEngine.Animations.Rigging;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerControls : MonoBehaviour
+public class PlayerControls : NetworkBehaviour
 {
     InputSystem_Actions m_InputActions; // test 
     [Space(10)]
@@ -37,6 +38,8 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] TwoBoneIKConstraint m_RightFootIKConstraint;
     [SerializeField] TwoBoneIKConstraint m_LeftFootIKConstraint;
     
+    public SyncVar<float> RightHandIKWeight = new SyncVar<float>(ownerAuth : true);
+    
     [Space(10)]
     [Header("Pause")]
     [Space(10)]
@@ -60,9 +63,17 @@ public class PlayerControls : MonoBehaviour
     private void Awake()
     {
         m_InputActions = new InputSystem_Actions();
+        RightHandIKWeight.onChanged += OnRightHandIkWeightChanged; 
     }
+    
     void Start()
     {
+        
+    }
+
+    private void OnRightHandIkWeightChanged(float obj)
+    {
+        Debug.Log("Ik WeightChanged");
     }
 
     // Update is called once per frame
@@ -261,6 +272,7 @@ public class PlayerControls : MonoBehaviour
                 m_LeftHandIKConstraint.weight = 1f;
                 m_LeftFootIKConstraint.weight = 1f;
                 m_RightFootIKConstraint.weight = 1f;
+                RightHandIKWeight.value = 3.4f; 
            
                 //
                 

@@ -56,7 +56,7 @@ public class VehiculeMovement : MonoBehaviour
     [Range(-45, 45)] public float currentLeanAngle;
     [Space(20)]
     [HeaderAttribute("Speed")]
-    [SerializeField] float currentSpeed;
+    public float currentSpeed;
 
     private void Awake()
     {
@@ -73,6 +73,7 @@ public class VehiculeMovement : MonoBehaviour
     void Update()
     {
         braking = Keyboard.current.spaceKey.isPressed;
+        currentSpeed = Vector3.Dot(m_RigidBody.linearVelocity, transform.forward); 
     }
     protected virtual void FixedUpdate()
     {

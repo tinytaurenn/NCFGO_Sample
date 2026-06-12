@@ -1636,8 +1636,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 5228976361011317184}
   m_AABB:
-    m_Center: {x: -0.052366853, y: 2.772149, z: -0.1314205}
-    m_Extent: {x: 1.5613563, y: 1.2535262, z: 1.1485035}
+    m_Center: {x: -0.052366853, y: -1.2739025, z: -0.02070868}
+    m_Extent: {x: 1.5613563, y: 1.2389659, z: 1.0377918}
   m_DirtyAABB: 0
 --- !u!1 &4057982006849539155
 GameObject:
@@ -1737,7 +1737,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.05
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -3285,6 +3285,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fa4a56080bff4c4baca488c343b4e34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _networkRules: {fileID: 0}
+  _visitiblityRules: {fileID: 0}
+  _isSetup: 0
+  _prefabId: -2147483648
+  _componentIndex: -2147483648
+  _shouldBePooled: 0
+  _parent: {fileID: 0}
+  _invertedPathToNearestParent: 
+  _directChildren: []
   m_PlayerMovement: {fileID: 6356818469277179427}
   m_PlayerCamera: {fileID: 1898699691110274942}
   m_FootCameraAnchor: {fileID: 5349912362347908870}
@@ -3300,6 +3309,10 @@ MonoBehaviour:
   LeftFootIK: {fileID: 4946858894219325429}
   m_RightFootIKConstraint: {fileID: 2473748589261765613}
   m_LeftFootIKConstraint: {fileID: 1562976474396752798}
+  RightHandIKWeight:
+    _value: 0
+    _ownerAuth: 1
+    _sendIntervalInSeconds: 0
   m_PauseMenuGO: {fileID: 3810405171218532940}
   m_UI_Manager: {fileID: 4134486627974023136}
   m_LocomotionState: 0

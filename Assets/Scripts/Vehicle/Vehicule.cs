@@ -1,3 +1,4 @@
+using System;
 using PurrNet;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,7 +11,9 @@ public class Vehicule : NetworkBehaviour, IUsable
     public Transform HandAnchorRight; 
     public Transform HandAnchorLeft; 
     public Transform FootAnchorLeft; 
-    public Transform FootAnchorRight; 
+    public Transform FootAnchorRight;
+
+    [SerializeField] private Transform m_RotorTransform; 
 
     private void Awake()
     {
@@ -25,6 +28,13 @@ public class Vehicule : NetworkBehaviour, IUsable
     void Update()
     {
 
+    }
+
+    private void FixedUpdate()
+    {
+        //m_RotorTransform.Rotate(transform.forward, m_VehicleMovement.currentSpeed * Time.fixedDeltaTime * 30f);
+        Quaternion deltaRot = Quaternion.Euler(0f, -m_VehicleMovement.currentSpeed * Time.fixedDeltaTime * 60f, 0f);
+        m_RotorTransform.rotation *=  deltaRot;
     }
 
     public void TryUse(PlayerEntity playerEntity)

@@ -17,6 +17,7 @@ public class PlayerSkin : NetworkBehaviour
     
     private void OnSkinIndexChanged(int index)
     {
+        Debug.Log("index changed");
         foreach (var m_Renderer in m_Renderers)
         {
             m_Renderer.material = m_Materials[index];
@@ -55,7 +56,9 @@ public class PlayerSkin : NetworkBehaviour
 
         if (Keyboard.current.numpad0Key.isPressed)
         {
-            SendMessage(1); 
+            int index = Random.Range(0, m_Materials.Length);
+            m_SkinIndex.value = index;
+            //SendMessage(1); 
         }
     }
 
