@@ -78,6 +78,19 @@ public class PlayerEntity : PlayerIdentity<PlayerEntity>
         transform.SetPositionAndRotation(GameManager.Instance.PlayerSpawnPoint.position, Quaternion.identity);
     }
 
+    public void PlayerDisconnect()
+    {
+        if (isServer)
+        {
+            networkManager.StopServer();
+        }
+        if (isClient)
+        {
+            networkManager.StopClient();
+        }
+        
+    }
+
     protected override void OnSpawned(bool asServer)
     {
         base.OnSpawned(asServer);

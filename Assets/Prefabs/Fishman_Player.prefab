@@ -2729,7 +2729,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7972306966946080118}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 880056452298996571}
+        m_TargetAssemblyTypeName: PlayerControls, Assembly-CSharp
+        m_MethodName: PauseDisconnectButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5575755062493845115
 GameObject:
   m_ObjectHideFlags: 0
@@ -3409,7 +3421,7 @@ MonoBehaviour:
   LeftFootIK: {fileID: 4946858894219325429}
   m_RightFootIKConstraint: {fileID: 2473748589261765613}
   m_LeftFootIKConstraint: {fileID: 1562976474396752798}
-  RightHandIKWeight:
+  GlobalIkWeight:
     _value: 0
     _ownerAuth: 1
     _sendIntervalInSeconds: 0

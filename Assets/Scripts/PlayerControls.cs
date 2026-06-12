@@ -137,6 +137,16 @@ public class PlayerControls : NetworkBehaviour
         TogglePauseMenu();
         transform.GetComponent<PlayerEntity>().PlayerRespawn();
     }
+    
+    public void PauseDisconnectButton()
+    {
+        Debug.Log("pause respawn button");
+        //transform.SetPositionAndRotation(GameManager.Instance.PlayerSpawnPoint.position, Quaternion.identity);
+        TogglePauseMenu();
+        transform.GetComponent<PlayerEntity>().PlayerDisconnect();
+        SceneUIManager.Instance.ConnectionWindow.SetActive(true);
+    }
+    
 
 
     private void OnDisable()
@@ -321,7 +331,7 @@ public class PlayerControls : NetworkBehaviour
                 if (m_CurrentVehicule)
                 {
                     transform.position = m_CurrentVehicule.transform.position + m_CurrentVehicule.transform.right * 2f;
-                    transform.rotation.SetLookRotation(m_CurrentVehicule.transform.position);
+                    //transform.rotation.SetLookRotation(m_CurrentVehicule.transform.position);
                 }
                 GlobalIkWeight.value = 0f;
                 break;
