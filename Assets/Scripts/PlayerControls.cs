@@ -14,6 +14,7 @@ public class PlayerControls : NetworkBehaviour
     [Space(10)]
     [SerializeField] PlayerMovement m_PlayerMovement;
     [SerializeField] PlayerCamera m_PlayerCamera;
+    [SerializeField] PlayerEntity m_PlayerEntity;
     [SerializeField] private Transform m_FootCameraAnchor; 
     [SerializeField] private Transform m_BicycleCameraAnchor;
 
@@ -38,7 +39,7 @@ public class PlayerControls : NetworkBehaviour
     [SerializeField] TwoBoneIKConstraint m_RightFootIKConstraint;
     [SerializeField] TwoBoneIKConstraint m_LeftFootIKConstraint;
     
-    public SyncVar<float> RightHandIKWeight = new SyncVar<float>(ownerAuth : true);
+    public SyncVar<float> GlobalIkWeight = new SyncVar<float>(ownerAuth : true);
     
     [Space(10)]
     [Header("Pause")]
@@ -63,7 +64,7 @@ public class PlayerControls : NetworkBehaviour
     private void Awake()
     {
         m_InputActions = new InputSystem_Actions();
-        RightHandIKWeight.onChanged += OnRightHandIkWeightChanged; 
+        GlobalIkWeight.onChanged += OnGlobalIkWeightChanged; 
     }
     
     void Start()
@@ -71,13 +72,13 @@ public class PlayerControls : NetworkBehaviour
         
     }
 
-    private void OnRightHandIkWeightChanged(float obj)
+    private void OnGlobalIkWeightChanged(float obj)
     {
         Debug.Log("Ik WeightChanged");
-        m_RightHandIKConstraint.weight = 1f;
-        m_LeftHandIKConstraint.weight = 1f;
-        m_LeftFootIKConstraint.weight = 1f;
-        m_RightFootIKConstraint.weight = 1f;
+        m_RightHandIKConstraint.weight = obj;
+        m_LeftHandIKConstraint.weight = obj;
+        m_LeftFootIKConstraint.weight = obj;
+        m_RightFootIKConstraint.weight = obj;
     }
 
     // Update is called once per frame
@@ -99,9 +100,20 @@ public class PlayerControls : NetworkBehaviour
     {
         m_InputActions.Player.Enable();
         m_InputActions.Player.Interact.performed += OnInteract; 
+        m_InputActions.Player.Crouch.performed += OnCrouch; 
+        
         m_InputActions.Player.Pause.performed += OnTogglePauseMenu;
+        
 
 
+    }
+
+    private void OnCrouch(InputAction.CallbackContext obj)
+    {
+        if(m_CurrentVehicule)
+        {
+            m_PlayerEntity.ExitVehicle(); 
+        }
     }
 
     private void OnTogglePauseMenu(InputAction.CallbackContext context)
@@ -131,6 +143,7 @@ public class PlayerControls : NetworkBehaviour
     {
         m_InputActions.Player.Interact.performed -= OnInteract;
         m_InputActions.Player.Pause.performed -= OnTogglePauseMenu;
+        m_InputActions.Player.Crouch.performed -= OnCrouch; 
         m_InputActions.Player.Disable();
 
     }
@@ -215,7 +228,11 @@ public class PlayerControls : NetworkBehaviour
                 SetIsSprinting(m_InputActions.Player.Sprint.IsPressed());
                 break;
             case ELocomotionState.Bicycle:
-                m_PlayerMovement.StopMovement();
+
+                
+                //m_PlayerMovement.StopMovement();
+                m_CurrentVehicule.m_VehicleMovement.braking = m_InputActions.Player.Jump.IsPressed();
+                
                 SetVehicleValue(m_InputActions.Player.Move.ReadValue<Vector2>());
                 m_PlayerMovement.MouseDelta = m_InputActions.Player.Look.ReadValue<Vector2>();
                 m_PlayerCamera.MouseDelta = m_InputActions.Player.Look.ReadValue<Vector2>();
@@ -245,6 +262,8 @@ public class PlayerControls : NetworkBehaviour
                 //LeftFootIK.transform.rotation = Quaternion.Slerp(LeftFootIK.transform.rotation, m_CurrentVehicule.transform.rotation, 15 * Time.fixedDeltaTime);
                 
                 
+                
+                
                 break;
             default:
                 break;
@@ -272,8 +291,10 @@ public class PlayerControls : NetworkBehaviour
             case ELocomotionState.Bicycle:
                 //bicycle
                 
+                m_PlayerMovement.StopMovement();
                 
-                RightHandIKWeight.value = 1f; 
+                
+                GlobalIkWeight.value = 1f; 
            
                 //
                 
@@ -293,10 +314,16 @@ public class PlayerControls : NetworkBehaviour
         switch (m_LocomotionState)
         {
             case ELocomotionState.Foot:
+                
                 break;
             case ELocomotionState.Bicycle:
-                m_RightHandIKConstraint.weight = 0f;
-                m_LeftHandIKConstraint.weight = 0f;
+
+                if (m_CurrentVehicule)
+                {
+                    transform.position = m_CurrentVehicule.transform.position + m_CurrentVehicule.transform.right * 2f;
+                    transform.rotation.SetLookRotation(m_CurrentVehicule.transform.position);
+                }
+                GlobalIkWeight.value = 0f;
                 break;
             default:
                 break;

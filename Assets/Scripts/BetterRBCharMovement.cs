@@ -17,7 +17,7 @@ public class BetterRBCharMovement : MonoBehaviour
     protected Rigidbody m_RigidBody;
     [SerializeField] bool m_IsGrounded = true;
 
-    [SerializeField] float m_SprintMultiplier = 1.5f;
+    [SerializeField] protected float m_SprintMultiplier = 1.5f;
 
 
    [Header("Stair Stepping")]
@@ -145,7 +145,7 @@ public class BetterRBCharMovement : MonoBehaviour
         m_IsGrounded = Physics.Raycast(capsuleBase, Vector3.down, 0.1f, m_WalkableLayer);
     }
 
-    void UpdateAnimator()
+    protected virtual void UpdateAnimator()
     {
         Vector2 newMoveInput = Vector2.Lerp(PreviousMoveInputRaw, MoveInputRaw, Time.deltaTime * 5f);
         if (newMoveInput.magnitude < 0.01f) newMoveInput = Vector2.zero;

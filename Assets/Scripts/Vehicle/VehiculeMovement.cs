@@ -25,7 +25,7 @@ public class VehiculeMovement : MonoBehaviour
     [SerializeField] Transform backWheelTransform;
     [SerializeField] Transform m_Handle; 
 
-    [SerializeField] bool braking = false; 
+    public bool braking = false; 
     [SerializeField] float brakeForce = 20; 
 
     [Space(20)]
@@ -72,11 +72,7 @@ public class VehiculeMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current == null)
-        {
-            return; 
-        }
-        braking = Keyboard.current.spaceKey.isPressed;
+        
         currentSpeed = Vector3.Dot(m_RigidBody.linearVelocity, transform.forward); 
     }
     protected virtual void FixedUpdate()

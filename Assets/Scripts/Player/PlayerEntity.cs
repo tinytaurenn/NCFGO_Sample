@@ -63,6 +63,12 @@ public class PlayerEntity : PlayerIdentity<PlayerEntity>
 
     }
 
+    public void ExitVehicle()
+    {
+        Debug.Log("Exit vehicle"); 
+        m_PlayerControls.SwitchLocomotionState(PlayerControls.ELocomotionState.Foot);
+    }
+
  
 
     public void PlayerRespawn()

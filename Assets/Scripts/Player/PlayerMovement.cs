@@ -53,6 +53,14 @@ public class PlayerMovement : BetterRBCharMovement
         base.FixedUpdate();
 
     }
+
+    protected override void UpdateAnimator()
+    {
+        if (CurrentVehicule) return; 
+        base.UpdateAnimator();
+        
+    }
+
     protected override void MovementUpdate()
     {
 

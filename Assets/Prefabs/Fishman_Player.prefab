@@ -3395,6 +3395,7 @@ MonoBehaviour:
   _directChildren: []
   m_PlayerMovement: {fileID: 6356818469277179427}
   m_PlayerCamera: {fileID: 1898699691110274942}
+  m_PlayerEntity: {fileID: 7390632605524463454}
   m_FootCameraAnchor: {fileID: 5349912362347908870}
   m_BicycleCameraAnchor: {fileID: 6697167004156118127}
   m_CurrentVehicule: {fileID: 0}
