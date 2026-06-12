@@ -1,4 +1,5 @@
 
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : BetterRBCharMovement
@@ -56,7 +57,6 @@ public class PlayerMovement : BetterRBCharMovement
 
     protected override void UpdateAnimator()
     {
-        if (CurrentVehicule) return; 
         base.UpdateAnimator();
         
     }
@@ -110,6 +110,7 @@ public class PlayerMovement : BetterRBCharMovement
        
         
     }
+    
 
    
 

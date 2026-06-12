@@ -48,6 +48,7 @@ public class PlayerEntity : PlayerIdentity<PlayerEntity>
     public void EnterVehicle(Vehicule vehicle)
     {
         Debug.Log("Entering vehicle"); 
+        vehicle.GetComponent<BoxCollider>().isTrigger = true;
         vehicle.GiveOwnership(localPlayer);
         vehicle.HasDriver.value = true;
         
@@ -65,9 +66,12 @@ public class PlayerEntity : PlayerIdentity<PlayerEntity>
 
     public void ExitVehicle()
     {
+
         Debug.Log("Exit vehicle"); 
         m_PlayerControls.SwitchLocomotionState(PlayerControls.ELocomotionState.Foot);
     }
+
+
 
  
 

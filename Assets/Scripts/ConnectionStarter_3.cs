@@ -27,6 +27,9 @@ public class ConnectionStarter_3 : MonoBehaviour
         [SerializeField] TMP_InputField m_ServerAdressInputField;
         [SerializeField] TMP_InputField m_ServerPortInputField;
         [SerializeField]  GameObject m_ConnectionUI;
+        [Space(10)]
+        [Header("ENABLE THIS TO PUSH ONLINE")]
+        [Space(10)]
         [SerializeField] private bool IsDedicatedServer = false; 
          
  

@@ -147,6 +147,11 @@ public class BetterRBCharMovement : MonoBehaviour
 
     protected virtual void UpdateAnimator()
     {
+        Debug.Log("Updating Animator");
+        if (m_Animator.GetBool("OnBike"))
+        {
+            return; 
+        }
         Vector2 newMoveInput = Vector2.Lerp(PreviousMoveInputRaw, MoveInputRaw, Time.deltaTime * 5f);
         if (newMoveInput.magnitude < 0.01f) newMoveInput = Vector2.zero;
         PreviousMoveInputRaw = newMoveInput;
@@ -157,11 +162,23 @@ public class BetterRBCharMovement : MonoBehaviour
 
     public virtual void StopMovement()
     {
+        Debug.Log("stopping movement");
         MoveInput = Vector3.zero;
+        PreviousMoveInputRaw = Vector3.zero;
+        MoveInputRaw = Vector3.zero;
         if(!m_RigidBody.isKinematic)m_RigidBody.linearVelocity = Vector3.zero;
         
         m_Animator.SetFloat("VelocityZ", 0);
         m_Animator.SetFloat("VelocityX", 0);
+    }
+
+    public virtual void SetOnBike(bool onBike)
+    {
+        if (onBike)
+        {
+            StopMovement(); 
+        }
+        m_Animator.SetBool("OnBike", onBike);
     }
 
     public void Bump(Vector3 normalizedDirection, float force)
