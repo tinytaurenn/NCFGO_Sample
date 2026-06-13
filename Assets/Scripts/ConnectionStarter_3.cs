@@ -64,7 +64,8 @@ public class ConnectionStarter_3 : MonoBehaviour
             m_ConnectionUI.SetActive(true);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.Confined;
-            StartCoroutine(WaitForAnalyzeNetworkStatus());
+            if (_networkManager) StartCoroutine(WaitForAnalyzeNetworkStatus());
+            
             
             
         }
