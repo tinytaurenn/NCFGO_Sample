@@ -1,6 +1,7 @@
 using PurrNet;
 using PurrNet.Transports;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerEntity : PlayerIdentity<PlayerEntity>
@@ -87,14 +88,16 @@ public class PlayerEntity : PlayerIdentity<PlayerEntity>
 
     public void PlayerDisconnect()
     {
-        if (isServer)
-        {
-            networkManager.StopServer();
-        }
-        if (isClient)
-        {
-            networkManager.StopClient();
-        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //return; 
+        // if (isServer)
+        // {
+        //     networkManager.StopServer();
+        // }
+        // if (isClient)
+        // {
+        //     networkManager.StopClient();
+        // }
         
     }
 

@@ -142,13 +142,13 @@ public class PlayerControls : NetworkBehaviour
     
     public void PauseDisconnectButton()
     {
-        Debug.Log("pause respawn button");
         //transform.SetPositionAndRotation(GameManager.Instance.PlayerSpawnPoint.position, Quaternion.identity);
-        TogglePauseMenu();
+        //TogglePauseMenu();
         transform.GetComponent<PlayerEntity>().PlayerDisconnect();
-        SceneUIManager.Instance.ConnectionWindow.SetActive(true);
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
+        //SceneUIManager.Instance.ConnectionWindow.SetActive(true);
+        //Cursor.visible = true;
+        //Cursor.lockState = CursorLockMode.Confined;
+        
     }
     
 

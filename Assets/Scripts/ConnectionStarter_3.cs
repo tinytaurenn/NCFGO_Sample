@@ -95,46 +95,24 @@ public class ConnectionStarter_3 : MonoBehaviour
             
 
         }
-        void StartNormal()
+
+        void StartLocalClient()
         {
-            //networkManager.transport = m_UDPTransport;
-            //start server if this is the host
-            //_networkManager.StartServer();
-
-            _networkManager.startClientFlags = StartFlags.ClientBuild; 
-            if (m_IsLocalPlaying)
-            {
-                _networkManager.startClientFlags = (StartFlags)(-1);
-                _networkManager.startServerFlags = StartFlags.ServerBuild | StartFlags.Editor; 
-                m_UDPTransport.address = "127.0.0.1";
+            _networkManager.startClientFlags = (StartFlags)(-1);
+            _networkManager.startServerFlags = StartFlags.ServerBuild | StartFlags.Editor; 
+            m_UDPTransport.address = "127.0.0.1";
           
-                m_UDPTransport.serverPort = 5000;
-                _networkManager.StartServer();
-            }
-            else
-            {
-                _networkManager.startClientFlags = (StartFlags)(-1);
-                _networkManager.startServerFlags = StartFlags.ServerBuild;
-                //m_UDPTransport.address = m_ServerAdress;
-                //m_UDPTransport.serverPort = m_ServerPort;
-                //doesnt change adress
-            }
-            
-
+            m_UDPTransport.serverPort = 5000;
+            _networkManager.StartServer();
             _networkManager.StartClient(); 
             
             m_ConnectionUI.SetActive(false);
             StartCoroutine(WaitForAnalyzeNetworkStatus());
         }
-        
-        public void StartLocalConnectionButton()
-        {
-            m_IsLocalPlaying = true;
-            StartNormal();
-        }
 
-        public void StartServerButton()
+        void StartNetworkClient()
         {
+           
             if (m_ServerAdressInputField.text.IsNullOrEmpty() || m_ServerPortInputField.text.IsNullOrEmpty())
             {
                 Debug.LogError("Server address or port is empty!");
@@ -144,8 +122,27 @@ public class ConnectionStarter_3 : MonoBehaviour
             ushort serverPort =  ushort.Parse(m_ServerPortInputField.text);
             Debug.Log("server port is " + serverPort);
             m_UDPTransport.serverPort = serverPort;
+            
+            _networkManager.startClientFlags = (StartFlags)(-1);
+            _networkManager.startServerFlags = 0; //StartFlags.ServerBuild;
+            _networkManager.StartClient(); 
+            
+            m_ConnectionUI.SetActive(false);
+            StartCoroutine(WaitForAnalyzeNetworkStatus());
+        }
+        
+        
+        public void StartLocalConnectionButton()
+        {
+            StartLocalClient();
+            m_IsLocalPlaying = true;
+        }
+
+        public void StartServerButton()
+        {
+            
+            StartNetworkClient();
             m_IsLocalPlaying = false;
-            StartNormal();
         }
 
         IEnumerator WaitForAnalyzeNetworkStatus()
