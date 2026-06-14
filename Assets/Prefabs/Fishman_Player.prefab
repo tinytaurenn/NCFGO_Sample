@@ -3421,7 +3421,17 @@ MonoBehaviour:
   LeftFootIK: {fileID: 4946858894219325429}
   m_RightFootIKConstraint: {fileID: 2473748589261765613}
   m_LeftFootIKConstraint: {fileID: 1562976474396752798}
+  RightHandTransform: {fileID: 6386643118877977151}
+  LeftHandTransform: {fileID: 2643355028390691758}
   GlobalIkWeight:
+    _value: 0
+    _ownerAuth: 1
+    _sendIntervalInSeconds: 0
+  RightHandIKWeight:
+    _value: 0
+    _ownerAuth: 1
+    _sendIntervalInSeconds: 0
+  LeftHandIKWeight:
     _value: 0
     _ownerAuth: 1
     _sendIntervalInSeconds: 0

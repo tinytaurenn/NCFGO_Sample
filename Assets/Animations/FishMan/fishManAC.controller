@@ -89,7 +89,7 @@ AnimatorState:
   m_SpeedParameter: VelocityZ
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
-  m_TimeParameter: 
+  m_TimeParameter: VelocityZ
 --- !u!1102 &-4995927773586996757
 AnimatorState:
   serializedVersion: 6

@@ -38,8 +38,16 @@ public class PlayerControls : NetworkBehaviour
     [SerializeField] Transform LeftFootIK;
     [SerializeField] TwoBoneIKConstraint m_RightFootIKConstraint;
     [SerializeField] TwoBoneIKConstraint m_LeftFootIKConstraint;
+
+    [SerializeField] Transform RightHandTransform;
+    [SerializeField] Transform LeftHandTransform;
     
     public SyncVar<float> GlobalIkWeight = new SyncVar<float>(ownerAuth : true);
+    public SyncVar<float> RightHandIKWeight = new SyncVar<float>(ownerAuth : true);
+    public SyncVar<float> LeftHandIKWeight = new SyncVar<float>(ownerAuth : true);
+    
+    //weightFlags
+    
     
     [Space(10)]
     [Header("Pause")]
@@ -65,11 +73,20 @@ public class PlayerControls : NetworkBehaviour
     {
         m_InputActions = new InputSystem_Actions();
         GlobalIkWeight.onChanged += OnGlobalIkWeightChanged; 
+        LeftHandIKWeight.onChanged += OnLeftHandIkWeightChanged;
+        RightHandIKWeight.onChanged += OnRightHandIkWeightChanged;
     }
-    
-    void Start()
+
+    private void OnLeftHandIkWeightChanged(float obj)
     {
-        
+        m_LeftHandIKConstraint.weight = obj;
+    }
+
+
+  
+    private void OnRightHandIkWeightChanged(float obj)
+    {
+        m_RightHandIKConstraint.weight = obj;
     }
 
     private void OnGlobalIkWeightChanged(float obj)
@@ -93,7 +110,37 @@ public class PlayerControls : NetworkBehaviour
 
     private void FixedUpdate()
     {
+        HandleArmsControls();
         FixedLocomotionStateUpdate();
+    }
+
+    void HandleArmsControls()
+    {
+       
+        Vector3 lookPos = m_PlayerCamera.transform.position + m_PlayerCamera.transform.forward * 3f;
+        Quaternion lookRot = Quaternion.LookRotation(m_PlayerCamera.transform.forward, m_PlayerCamera.transform.forward);
+        lookRot *= Quaternion.Euler(90f, 0f, 0f);
+        
+        
+        if (m_InputActions.Player.Attack.IsPressed())
+        {
+
+            
+            
+            Debug.Log("Left Arm");
+            LeftHandIK.transform.position = Vector3.Lerp(LeftHandIK.transform.position, lookPos, 10 * Time.fixedDeltaTime);
+            LeftHandIK.transform.rotation = lookRot; 
+        }
+       
+        if (m_InputActions.Player.AttackRight.IsPressed())
+        {
+           
+            
+            RightHandIK.transform.position = Vector3.Lerp(RightHandIK.transform.position, lookPos, 10 * Time.fixedDeltaTime);
+            RightHandIK.transform.rotation = lookRot; 
+            Debug.Log("Right Arm");
+        }
+       
     }
 
     private void OnEnable()
@@ -104,8 +151,59 @@ public class PlayerControls : NetworkBehaviour
         
         m_InputActions.Player.Pause.performed += OnTogglePauseMenu;
         
+        m_InputActions.Player.Attack.started += OnLeftAttackStart;
+        m_InputActions.Player.Attack.canceled += OnLeftAttackCanceled;
+        m_InputActions.Player.AttackRight.started += OnRightAttackStart;
+        m_InputActions.Player.AttackRight.canceled += OnRightAttackCanceled;
+        
+        
 
 
+    }
+
+    private void OnRightAttackStart(InputAction.CallbackContext obj)
+    {
+        //throw new NotImplementedException();
+        if (RightHandIKWeight.value < 0.9f)
+        {
+            RightHandIKWeight.value = 1f;
+        }
+    }
+
+    private void OnRightAttackCanceled(InputAction.CallbackContext obj)
+    {
+        RightHandIK.transform.position = RightHandTransform.position;
+        if (m_CurrentVehicule) return; 
+        if (RightHandIKWeight.value > 0.5f)
+        {
+            RightHandIKWeight.value = 0f;
+        }
+
+    }
+
+    private void OnLeftAttackCanceled(InputAction.CallbackContext obj)
+    {
+        LeftHandIK.transform.position = LeftHandTransform.position;
+        if (m_CurrentVehicule) return; 
+        if (LeftHandIKWeight.value > 0.5f)
+        {
+            LeftHandIKWeight.value = 0f;
+        }
+        
+    }
+
+    private void OnLeftAttackStart(InputAction.CallbackContext obj)
+    {
+        Debug.Log("Left Attack Start");
+        if (LeftHandIKWeight.value < 0.9f)
+        {
+            LeftHandIKWeight.value = 1f;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(m_PlayerCamera.transform.position + m_PlayerCamera.transform.forward * 3f, 0.1f);
     }
 
     private void OnCrouch(InputAction.CallbackContext obj)
@@ -263,10 +361,18 @@ public class PlayerControls : NetworkBehaviour
                 
                 break;
             case ELocomotionState.Bicycle:
-                RightHandIK.transform.position = Vector3.Lerp(RightHandIK.transform.position, m_CurrentVehicule.HandAnchorRight.position, 15 * Time.fixedDeltaTime);
-                LeftHandIK.transform.position = Vector3.Lerp(LeftHandIK.transform.position, m_CurrentVehicule.HandAnchorLeft.position, 15 * Time.fixedDeltaTime);
-                RightHandIK.transform.rotation = Quaternion.Slerp(RightHandIK.transform.rotation, m_CurrentVehicule.HandAnchorRight.rotation, 15 * Time.fixedDeltaTime);
-                LeftHandIK.transform.rotation = Quaternion.Slerp(LeftHandIK.transform.rotation, m_CurrentVehicule.HandAnchorLeft.rotation, 15 * Time.fixedDeltaTime);
+                if (!m_InputActions.Player.AttackRight.IsPressed())
+                {
+                    RightHandIK.transform.position = Vector3.Lerp(RightHandIK.transform.position, m_CurrentVehicule.HandAnchorRight.position, 15 * Time.fixedDeltaTime);
+                    RightHandIK.transform.rotation = Quaternion.Slerp(RightHandIK.transform.rotation, m_CurrentVehicule.HandAnchorRight.rotation, 15 * Time.fixedDeltaTime);
+                }
+                if (!m_InputActions.Player.Attack.IsPressed())
+                {
+                    LeftHandIK.transform.position = Vector3.Lerp(LeftHandIK.transform.position, m_CurrentVehicule.HandAnchorLeft.position, 15 * Time.fixedDeltaTime);
+                    LeftHandIK.transform.rotation = Quaternion.Slerp(LeftHandIK.transform.rotation, m_CurrentVehicule.HandAnchorLeft.rotation, 15 * Time.fixedDeltaTime);
+                }
+               
+               
                 
                 //foots
                 
@@ -376,3 +482,5 @@ public class PlayerControls : NetworkBehaviour
         m_UI_Manager.ShowText(false);
     }
 }
+
+
