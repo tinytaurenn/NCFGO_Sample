@@ -181,14 +181,7 @@ public class BetterRBCharMovement : MonoBehaviour
         m_Animator.SetBool("OnBike", onBike);
     }
 
-    public void Bump(Vector3 normalizedDirection, float force)
-    {
-
-
-      
-
-
-    }
+    
 
     private float GetHighestHitY(Vector3 origin, Vector3 direction, float distance, float maxStepHeight, LayerMask layerMask)
     {

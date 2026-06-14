@@ -14,10 +14,12 @@ public class Vehicule : NetworkBehaviour, IUsable
     public Transform FootAnchorRight;
 
     [SerializeField] private Transform m_RotorTransform; 
+    public Rigidbody m_RigidBody;
 
     private void Awake()
     {
         m_VehicleMovement = GetComponent<VehiculeMovement>();
+        m_RigidBody = GetComponent<Rigidbody>();
     }
     void Start()
     {
@@ -68,5 +70,62 @@ public class Vehicule : NetworkBehaviour, IUsable
         {
             Debug.Log("no local player found");
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (HasDriver.value)
+        {
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Vehicle"))
+            {
+                Debug.Log("Collision with player");
+                if(collision.transform.TryGetComponent<Vehicule>(out Vehicule vehicle))
+                {
+                    if (vehicle.owner != null)
+                    {
+                        vehicle.BumpBike(vehicle.owner.Value, (collision.transform.position - transform.position).normalized + Vector3.up *0.5f, m_VehicleMovement.currentSpeed);
+                        return; 
+                    }
+                    
+                }
+                
+            }
+            else if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+            {
+                //Debug.Log("Collision with player");
+                if (collision.transform.TryGetComponent<PlayerEntity>(out PlayerEntity player))
+                {
+                    
+                    //Debug.Log(player.GetNetworkID(false));
+                    Debug.Log(player.owner);
+                    if (player.owner != null)
+                    {
+                        player.BumpPlayer(player.owner.Value, (collision.transform.position - transform.position).normalized + Vector3.up *0.35f, m_VehicleMovement.currentSpeed);
+                        return; 
+                    }
+                
+               
+                
+                
+                }
+            }
+            
+        }
+        
+    }
+    
+    [ServerRpc(requireOwnership: false)]
+    public void BumpBike(PlayerID target, Vector3 normalizedDirection, float force)
+    {
+        Bump(target, normalizedDirection, force);
+    }
+    
+    [TargetRpc]
+    void Bump(PlayerID target,Vector3 normalizedDirection, float force)
+    {
+        Debug.Log("Bumping");
+        m_RigidBody.AddForce(force*50* normalizedDirection,ForceMode.Impulse);
+        
+
     }
 }

@@ -52,7 +52,8 @@ public class PlayerEntity : PlayerIdentity<PlayerEntity>
     public void EnterVehicle(Vehicule vehicle)
     {
         Debug.Log("Entering vehicle"); 
-        vehicle.GetComponent<BoxCollider>().isTrigger = true;
+        
+        Physics.IgnoreCollision(vehicle.GetComponent<Collider>(), m_collider, true);
         vehicle.GiveOwnership(localPlayer);
         vehicle.HasDriver.value = true;
         
@@ -72,7 +73,27 @@ public class PlayerEntity : PlayerIdentity<PlayerEntity>
     {
 
         Debug.Log("Exit vehicle"); 
+        Physics.IgnoreCollision(m_PlayerControls.m_CurrentVehicule.GetComponent<Collider>(), m_collider, false);
         m_PlayerControls.SwitchLocomotionState(PlayerControls.ELocomotionState.Foot);
+    }
+
+    [ServerRpc(requireOwnership: false)]
+    public void BumpPlayer(PlayerID target, Vector3 normalizedDirection, float force)
+    {
+        Bump(target, normalizedDirection, force);
+    }
+    
+    [TargetRpc]
+    void Bump(PlayerID target,Vector3 normalizedDirection, float force)
+    {
+        Debug.Log("Bumping");
+        if (m_PlayerControls.m_CurrentVehicule)
+        {
+            m_PlayerControls.m_CurrentVehicule.m_RigidBody.AddForce(force*5* normalizedDirection,ForceMode.Impulse);
+            return; 
+        }
+        m_Rigibody.AddForce(force*10* normalizedDirection,ForceMode.Impulse);
+
     }
 
 

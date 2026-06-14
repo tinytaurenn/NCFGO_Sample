@@ -337,7 +337,7 @@ public class PlayerControls : NetworkBehaviour
                 if (m_CurrentVehicule)
                 {
                     transform.position = m_CurrentVehicule.transform.position + m_CurrentVehicule.transform.right * 2f;
-                    m_CurrentVehicule.GetComponent<BoxCollider>().isTrigger = false;
+                    //m_CurrentVehicule.GetComponent<BoxCollider>().isTrigger = false;
                     //transform.rotation.SetLookRotation(m_CurrentVehicule.transform.position);
                 }
                 m_PlayerMovement.SetOnBike(false);
