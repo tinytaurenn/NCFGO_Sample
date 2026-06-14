@@ -3208,6 +3208,7 @@ GameObject:
   - component: {fileID: 880056452298996571}
   - component: {fileID: 6550382382643422955}
   - component: {fileID: 4728040131254918347}
+  - component: {fileID: 7615994291567936009}
   m_Layer: 6
   m_Name: Fishman_Player
   m_TagString: Player
@@ -3435,6 +3436,7 @@ MonoBehaviour:
     _value: 0
     _ownerAuth: 1
     _sendIntervalInSeconds: 0
+  m_PlayerSkinShared: {fileID: 7615994291567936009}
   m_PauseMenuGO: {fileID: 3810405171218532940}
   m_UI_Manager: {fileID: 4134486627974023136}
   m_LocomotionState: 0
@@ -3497,6 +3499,22 @@ MonoBehaviour:
     _value: 0
     _ownerAuth: 1
     _sendIntervalInSeconds: 0
+--- !u!114 &7615994291567936009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6624917736283092872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5287a6d1b3a7302499766e6087fee1b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSkinShared
+  RightArmFLag: 0
+  LeftArmFlag: 0
+  m_RightHandIKConstraint: {fileID: 7948461102865591274}
+  m_LeftHandIKConstraint: {fileID: 5412583663710655799}
 --- !u!1 &6717150907128670882
 GameObject:
   m_ObjectHideFlags: 0

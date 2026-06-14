@@ -46,6 +46,8 @@ public class PlayerControls : NetworkBehaviour
     public SyncVar<float> RightHandIKWeight = new SyncVar<float>(ownerAuth : true);
     public SyncVar<float> LeftHandIKWeight = new SyncVar<float>(ownerAuth : true);
     
+    [SerializeField] PlayerSkinShared m_PlayerSkinShared;
+    
     //weightFlags
     
     
@@ -79,21 +81,26 @@ public class PlayerControls : NetworkBehaviour
 
     private void OnLeftHandIkWeightChanged(float obj)
     {
-        m_LeftHandIKConstraint.weight = obj;
+        //m_LeftHandIKConstraint.weight = obj;
+        //m_PlayerSkinShared.ChangeFlags();
+        m_PlayerSkinShared.LeftArmFlag = obj;
     }
 
 
   
     private void OnRightHandIkWeightChanged(float obj)
     {
-        m_RightHandIKConstraint.weight = obj;
+        //m_RightHandIKConstraint.weight = obj;
+        m_PlayerSkinShared.RightArmFLag = obj;
     }
 
     private void OnGlobalIkWeightChanged(float obj)
     {
         Debug.Log("Ik WeightChanged");
-        m_RightHandIKConstraint.weight = obj;
-        m_LeftHandIKConstraint.weight = obj;
+        //m_RightHandIKConstraint.weight = obj;
+        m_PlayerSkinShared.RightArmFLag = obj;
+        //m_LeftHandIKConstraint.weight = obj;
+        m_PlayerSkinShared.LeftArmFlag = obj;
         m_LeftFootIKConstraint.weight = obj;
         m_RightFootIKConstraint.weight = obj;
     }
